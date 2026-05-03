@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Showcase - Analog Codeworks</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "surface-tint": "#bdc2ff",
+                        "on-secondary-fixed": "#241a00",
+                        "secondary-container": "#e4b600",
+                        "on-secondary-container": "#5d4900",
+                        "tertiary-fixed": "#ffdadb",
+                        "on-surface-variant": "#c6c5d4",
+                        "on-primary": "#1b247f",
+                        "inverse-primary": "#4c56af",
+                        "on-primary-container": "#8690ee",
+                        "surface-container-highest": "#353534",
+                        "tertiary-fixed-dim": "#ffb2b6",
+                        "on-tertiary-fixed-variant": "#842131",
+                        "on-secondary": "#3d2f00",
+                        "on-error": "#690005",
+                        "surface-container": "#201f1f",
+                        "secondary": "#ffd245",
+                        "background": "#131313",
+                        "inverse-on-surface": "#313030",
+                        "outline-variant": "#454652",
+                        "secondary-fixed": "#ffe08a",
+                        "outline": "#908f9d",
+                        "surface": "#131313",
+                        "on-secondary-fixed-variant": "#574400",
+                        "secondary-fixed-dim": "#f0c115",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "on-surface": "#e5e2e1",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "on-primary-fixed": "#000767",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary": "#ffb2b6",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-fixed": "#40000d",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#e0e0ff",
+                        "on-primary-fixed-variant": "#343d96",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary": "#65061c",
+                        "primary": "#bdc2ff",
+                        "primary-container": "#1a237e",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-container": "#64051c",
+                        "on-tertiary-container": "#ed707c",
+                        "surface-variant": "#353534",
+                        "surface-bright": "#393939"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "margin": "48px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Newsreader"],
+                        "technical-label": ["Space Grotesk"],
+                        "h1": ["Newsreader"],
+                        "body-md": ["Space Grotesk"],
+                        "h2": ["Newsreader"],
+                        "body-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "h3": ["2rem", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "technical-label": ["0.75rem", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "h1": ["4.5rem", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["1rem", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "h2": ["3rem", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-lg": ["1.125rem", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .vinyl-grooves {
+            background-image: repeating-radial-gradient(
+                circle at center,
+                rgba(0,0,0,0.8) 0,
+                rgba(0,0,0,0.9) 2px,
+                rgba(255,255,255,0.05) 3px,
+                rgba(0,0,0,0.8) 4px
+            );
+        }
+        .wood-texture {
+            background-color: #1a1512;
+            background-image: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.02) 0px,
+                rgba(255, 255, 255, 0.02) 2px,
+                transparent 2px,
+                transparent 4px
+            ),
+            linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md wood-texture">
+<!-- TopAppBar -->
+<header class="bg-indigo-950 dark:bg-[#1A237E] docked full-width top-0 border-b-2 border-dashed border-indigo-400/30 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)] z-50 sticky">
+<div class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-black italic text-yellow-500 dark:text-yellow-500 tracking-tighter">
+                CRAFTSMAN.DEV
+            </div>
+<nav class="hidden md:flex gap-8 border-b-2 border-dashed border-indigo-300/20 pb-2">
+<a class="font-newsreader tracking-tight text-lg text-stone-300/80 hover:text-white transition-colors hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150" href="#">Home</a>
+<a class="font-newsreader tracking-tight text-lg text-stone-300/80 hover:text-white transition-colors hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150" href="#">Skills</a>
+<a class="font-newsreader tracking-tight text-lg text-yellow-500 border-b-2 border-red-700 pb-1 hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150" href="#">Projects</a>
+<a class="font-newsreader tracking-tight text-lg text-stone-300/80 hover:text-white transition-colors hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150" href="#">About</a>
+</nav>
+<button class="bg-gradient-to-br from-secondary to-secondary-container text-on-secondary px-6 py-2 rounded-full font-technical-label text-technical-label shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] border border-secondary-fixed-dim hover:brightness-110 active:scale-95 transition-all">
+                Hire Me
+            </button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center py-margin px-gutter w-full max-w-container-max mx-auto overflow-hidden">
+<!-- Header Section -->
+<div class="w-full text-center mb-16 relative">
+<h1 class="font-h1 text-h1 text-surface-tint mb-4 drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">Selected Works</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto border-t border-b border-dashed border-outline-variant py-4">A curated collection of digital artifacts, engineered with precision and pressed for longevity.</p>
+</div>
+<!-- The Crate (Record Container) -->
+<div class="w-full max-w-6xl relative perspective-1000">
+<!-- Crate Back -->
+<div class="absolute inset-0 bg-surface-container-highest border-t-[8px] border-l-[8px] border-r-[8px] border-surface-container-lowest rounded-t-xl -z-20 transform translate-y-8 shadow-[inset_0_20px_20px_rgba(0,0,0,0.8)]"></div>
+<!-- Record Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8 relative z-10">
+<!-- Project 1: E-Commerce Platform -->
+<div class="group relative w-full aspect-square cursor-pointer">
+<!-- Vinyl Record (Slides up on hover) -->
+<div class="absolute w-[95%] aspect-square rounded-[50%] bg-surface-container-lowest vinyl-grooves left-1/2 -translate-x-1/2 top-4 -z-10 transition-transform duration-500 ease-out group-hover:-translate-y-12 group-hover:rotate-12 flex items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
+<!-- Record Label -->
+<div class="w-1/3 aspect-square rounded-[50%] bg-primary-container border-2 border-secondary relative flex items-center justify-center overflow-hidden">
+<div class="w-2 aspect-square rounded-[50%] bg-background border border-outline absolute z-10"></div>
+<div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)]"></div>
+<span class="font-technical-label text-[0.5rem] text-on-primary-container absolute top-2 uppercase tracking-widest">A-Side</span>
+</div>
+</div>
+<!-- Record Sleeve -->
+<div class="w-full aspect-square bg-surface-container border border-outline-variant rounded-DEFAULT shadow-[0_15px_25px_rgba(0,0,0,0.6)] flex flex-col relative overflow-hidden group-hover:shadow-[0_25px_35px_rgba(0,0,0,0.8)] transition-shadow duration-300">
+<!-- Cover Art -->
+<div class="h-2/3 w-full bg-surface-container-highest border-b border-dashed border-outline-variant relative overflow-hidden p-1">
+<img class="w-full h-full object-cover sepia-[.3] contrast-125" data-alt="A vintage-inspired digital illustration of a storefront window with modern neon signs, styled like an analog screen print with slight misregistration and halftone patterns. Colors are muted indigo, rust red, and off-white. The mood is nostalgic yet commercial." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwIxta-ZlIkTT1vK9o8kd_HsVKycq-RcdBASm4fEQ10LFiSTNH2xYSpnRDsk9LQa6Nzdfzio6TSV9ObWQxMlj9YefcyJ8nvnBFwAVaEeF-I_XzyMFJ-rJ3wjc8ySII8Mhmp9AMQtmvTd07pt7pAudnV7HvSxGupkRRqss17IqwF55ZIMb1JAZMAfICtYphLIh48z_15sxKtZyl-cNt70x8QGNttr2MG7L9-IKZlK7EEfndtNrfdGzczVDsKFtHICRrpRBPk2Q8vz8"/>
+<!-- Tech Tag -->
+<div class="absolute top-4 right-4 bg-error-container text-on-error-container font-technical-label text-[0.6rem] px-2 py-1 rounded-sm shadow-md border border-error/30 transform rotate-3">
+                                React / Node
+                            </div>
+</div>
+<!-- Sleeve Info -->
+<div class="flex-grow p-4 flex flex-col justify-between bg-surface-container bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzQnPgo8cmVjdCB3aWR0aD0nNCcgaGVpZ2h0PSc0JyBmaWxsPScjMjAxZjFmJy8+CjxwYXRoIGQ9J00wIDRMMCAwTDIgMkw0IDBMNCA0JyBzdHJva2U9JyMzNTM1MzQnIHN0cm9rZS13aWR0aD0nMC41JyBmaWxsPSdub25lJy8+Cjwvc3ZnPg==')] opacity-95">
+<div>
+<h3 class="font-h3 text-xl text-primary-fixed-dim leading-tight mb-1">Thread &amp; Pixel</h3>
+<p class="font-body-md text-sm text-on-surface-variant line-clamp-2">A bespoke e-commerce platform for artisanal clothing, featuring complex variant routing.</p>
+</div>
+<div class="flex gap-2 mt-2">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="material-symbols-outlined text-outline text-sm">database</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 2: Data Dashboard -->
+<div class="group relative w-full aspect-square cursor-pointer">
+<!-- Vinyl Record -->
+<div class="absolute w-[95%] aspect-square rounded-[50%] bg-surface-container-lowest vinyl-grooves left-1/2 -translate-x-1/2 top-4 -z-10 transition-transform duration-500 ease-out group-hover:-translate-y-12 group-hover:-rotate-12 flex items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
+<div class="w-1/3 aspect-square rounded-[50%] bg-tertiary-container border-2 border-secondary relative flex items-center justify-center overflow-hidden">
+<div class="w-2 aspect-square rounded-[50%] bg-background border border-outline absolute z-10"></div>
+<div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)]"></div>
+</div>
+</div>
+<!-- Record Sleeve -->
+<div class="w-full aspect-square bg-surface-container border border-outline-variant rounded-DEFAULT shadow-[0_15px_25px_rgba(0,0,0,0.6)] flex flex-col relative overflow-hidden group-hover:shadow-[0_25px_35px_rgba(0,0,0,0.8)] transition-shadow duration-300">
+<!-- Cover Art -->
+<div class="h-2/3 w-full bg-surface-container-highest border-b border-dashed border-outline-variant relative overflow-hidden p-1">
+<img class="w-full h-full object-cover grayscale contrast-150 mix-blend-luminosity opacity-80" data-alt="Abstract visualization of data flowing like a river, depicted using retro computer graphics style. Wireframe mountains and glowing neon lines in deep indigo and bright yellow. The scene feels like an early 90s cyberpunk hacker interface printed on heavy cardstock." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0IzTg-qBld3W3pakZ8MF1f8xft8Fqxe3QtmiazwumeTf4_xTLvSUZTg0VJB3Hc9_x83Qnk3wsLigT5JekXbui-mOV07lD5q_r5e9jNcoCgm1HSXo5PX5kXk5MuyhlvDUQPhkZ6fUXt2uikcPa-H65JsGNUjYz8j-iXZd61XUM0KmWhUMVm4Z5D20B7deoaIb6hHkjf3xKos4_LuAarq5e8J73qSRUTuqGGFZOxr-rS64ZK4bAJMwilBoT36ZVEhuq3kf6tIYhIeE"/>
+<div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container font-technical-label text-[0.6rem] px-2 py-1 rounded-sm shadow-md border border-tertiary/30 transform -rotate-2">
+                                Vue / D3.js
+                            </div>
+</div>
+<!-- Sleeve Info -->
+<div class="flex-grow p-4 flex flex-col justify-between bg-surface-container opacity-95">
+<div>
+<h3 class="font-h3 text-xl text-primary-fixed-dim leading-tight mb-1">Telemetry 9</h3>
+<p class="font-body-md text-sm text-on-surface-variant line-clamp-2">Real-time data visualization dashboard monitoring distributed microservices.</p>
+</div>
+<div class="flex gap-2 mt-2">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+<span class="material-symbols-outlined text-outline text-sm">api</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 3: Social App -->
+<div class="group relative w-full aspect-square cursor-pointer">
+<!-- Vinyl Record -->
+<div class="absolute w-[95%] aspect-square rounded-[50%] bg-surface-container-lowest vinyl-grooves left-1/2 -translate-x-1/2 top-4 -z-10 transition-transform duration-500 ease-out group-hover:-translate-y-16 flex items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
+<div class="w-1/3 aspect-square rounded-[50%] bg-surface-variant border-2 border-secondary relative flex items-center justify-center overflow-hidden">
+<div class="w-2 aspect-square rounded-[50%] bg-background border border-outline absolute z-10"></div>
+<div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)]"></div>
+</div>
+</div>
+<!-- Record Sleeve -->
+<div class="w-full aspect-square bg-surface-container border border-outline-variant rounded-DEFAULT shadow-[0_15px_25px_rgba(0,0,0,0.6)] flex flex-col relative overflow-hidden group-hover:shadow-[0_25px_35px_rgba(0,0,0,0.8)] transition-shadow duration-300">
+<!-- Cover Art -->
+<div class="h-2/3 w-full bg-surface-container-highest border-b border-dashed border-outline-variant relative overflow-hidden p-1">
+<img class="w-full h-full object-cover contrast-125 saturate-50" data-alt="A vintage group photograph, highly stylized with a duotone filter in dark blue and mustard yellow. The edges of the image look worn and distressed, resembling an old gig poster pasted on a brick wall. Focus is on connectivity and human elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkoLLWOIPXz56l7DtPhM92usY2cYa2USDNThxSKlB1LX4YqJPHNhNdf_5n8A85EpkhfBYr2iCTYyRfcLtw6wcxBj1PPvbK2bNPVZjgPznc_uL27S7bTVp2ole2yvX8kxp0H8Xgq_GCJOfH30bEjqDPIZXXETAH45D9HjaEU3cjMqwagtULdF3n-pjOTwcUSv4FI28uNTSKkb2THlsSpNc5Ei8UWDo52yWtCbcMXPlsbSfVWuegEaij1BjgImIy45m8qnQL7LBAZzg"/>
+<div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container font-technical-label text-[0.6rem] px-2 py-1 rounded-sm shadow-md border border-secondary/30 transform rotate-1">
+                                Svelte / Supabase
+                            </div>
+</div>
+<!-- Sleeve Info -->
+<div class="flex-grow p-4 flex flex-col justify-between bg-surface-container opacity-95">
+<div>
+<h3 class="font-h3 text-xl text-primary-fixed-dim leading-tight mb-1">Commune</h3>
+<p class="font-body-md text-sm text-on-surface-variant line-clamp-2">A localized social platform connecting neighborhood artisans and builders.</p>
+</div>
+<div class="flex gap-2 mt-2">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="material-symbols-outlined text-outline text-sm">public</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Crate Front (Overlaps slightly) -->
+<div class="absolute bottom-0 left-0 right-0 h-16 bg-surface-container-lowest border-t border-outline-variant z-20 shadow-[0_-10px_20px_rgba(0,0,0,0.5)] flex items-center justify-center">
+<div class="bg-surface-container-highest px-4 py-1 border border-outline rounded-sm shadow-inner flex items-center gap-2">
+<span class="w-2 h-2 rounded-[50%] bg-secondary shadow-[0_0_5px_#e4b600]"></span>
+<span class="font-technical-label text-technical-label text-on-surface-variant uppercase tracking-widest">Crate 01 // Active Projects</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-black dark:bg-stone-950 w-full border-t-4 border-double border-stone-900 flat no shadows z-10">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-6 w-full max-w-screen-2xl mx-auto">
+<div class="font-newsreader uppercase tracking-widest text-xs text-stone-500">
+                © 2024 ANALOG CODEWORKS — STITCHED WITH PRECISION
+            </div>
+<nav class="flex gap-6">
+<a class="font-newsreader uppercase tracking-widest text-xs text-stone-600 hover:text-stone-400 hover:underline decoration-red-900 decoration-2 opacity-80 hover:opacity-100 transition-opacity" href="#">GitHub</a>
+<a class="font-newsreader uppercase tracking-widest text-xs text-stone-600 hover:text-stone-400 hover:underline decoration-red-900 decoration-2 opacity-80 hover:opacity-100 transition-opacity" href="#">LinkedIn</a>
+<a class="font-newsreader uppercase tracking-widest text-xs text-stone-600 hover:text-stone-400 hover:underline decoration-red-900 decoration-2 opacity-80 hover:opacity-100 transition-opacity" href="#">Archive</a>
+</nav>
+</div>
+</footer>
+</body></html>

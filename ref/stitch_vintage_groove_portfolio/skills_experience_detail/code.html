@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skill &amp; Experience | The Articulate Craftsman</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "surface-tint": "#bdc2ff",
+                        "on-secondary-fixed": "#241a00",
+                        "secondary-container": "#e4b600",
+                        "on-secondary-container": "#5d4900",
+                        "tertiary-fixed": "#ffdadb",
+                        "on-surface-variant": "#c6c5d4",
+                        "on-primary": "#1b247f",
+                        "inverse-primary": "#4c56af",
+                        "on-primary-container": "#8690ee",
+                        "surface-container-highest": "#353534",
+                        "tertiary-fixed-dim": "#ffb2b6",
+                        "on-tertiary-fixed-variant": "#842131",
+                        "on-secondary": "#3d2f00",
+                        "on-error": "#690005",
+                        "surface-container": "#201f1f",
+                        "secondary": "#ffd245",
+                        "background": "#131313",
+                        "inverse-on-surface": "#313030",
+                        "outline-variant": "#454652",
+                        "secondary-fixed": "#ffe08a",
+                        "outline": "#908f9d",
+                        "surface": "#131313",
+                        "on-secondary-fixed-variant": "#574400",
+                        "secondary-fixed-dim": "#f0c115",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "on-surface": "#e5e2e1",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "on-primary-fixed": "#000767",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary": "#ffb2b6",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-fixed": "#40000d",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#e0e0ff",
+                        "on-primary-fixed-variant": "#343d96",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary": "#65061c",
+                        "primary": "#bdc2ff",
+                        "primary-container": "#1a237e",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-container": "#64051c",
+                        "on-tertiary-container": "#ed707c",
+                        "surface-variant": "#353534",
+                        "surface-bright": "#393939"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "margin": "48px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Newsreader"],
+                        "technical-label": ["Space Grotesk"],
+                        "h1": ["Newsreader"],
+                        "body-md": ["Space Grotesk"],
+                        "h2": ["Newsreader"],
+                        "body-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "h3": ["2rem", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "technical-label": ["0.75rem", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "h1": ["4.5rem", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["1rem", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "h2": ["3rem", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-lg": ["1.125rem", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Skeuomorphic Textures */
+        .vinyl-grooves {
+            background-image: repeating-radial-gradient(
+                circle at center,
+                rgba(255,255,255,0.03) 0,
+                rgba(255,255,255,0.03) 1px,
+                transparent 1px,
+                transparent 4px
+            );
+        }
+        
+        .denim-texture {
+            background-color: #1a237e; /* primary-container */
+            background-image: 
+                linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.02) 75%, transparent 75%, transparent),
+                linear-gradient(-45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.02) 75%, transparent 75%, transparent);
+            background-size: 4px 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden selection:bg-secondary selection:text-on-secondary">
+<!-- JSON TopAppBar -->
+<header class="bg-indigo-950 dark:bg-[#1A237E] docked full-width top-0 border-b-2 border-dashed border-indigo-400/30 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)] z-50 sticky">
+<nav class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto border-b-2 border-dashed border-indigo-300/20">
+<div class="text-2xl font-black italic text-yellow-500 dark:text-yellow-500 tracking-tighter">
+                CRAFTSMAN.DEV
+            </div>
+<div class="hidden md:flex gap-8 font-newsreader tracking-tight text-lg items-center">
+<a class="text-stone-300/80 hover:text-white transition-colors hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150" href="#">Home</a>
+<a class="text-yellow-500 border-b-2 border-red-700 pb-1 hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150" href="#">Skills</a>
+<a class="text-stone-300/80 hover:text-white transition-colors hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150" href="#">Projects</a>
+<a class="text-stone-300/80 hover:text-white transition-colors hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150" href="#">About</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="font-newsreader tracking-tight text-lg text-yellow-500 dark:text-[#EAB308] border border-yellow-500/50 px-4 py-2 rounded hover:bg-yellow-500/10 transition-colors active:scale-95 transform transition-transform duration-150">
+                    Hire Me
+                </button>
+</div>
+</nav>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter py-margin grid grid-cols-1 lg:grid-cols-12 gap-gutter relative">
+<!-- Left Column: The Spindle & Care Label (Sticky) -->
+<aside class="lg:col-span-5 flex flex-col gap-8 relative lg:sticky lg:top-32 h-fit">
+<!-- Radar Chart (The "Spindle") -->
+<div class="bg-surface-container-lowest rounded p-8 relative flex flex-col items-center justify-center overflow-hidden border-2 border-surface-variant shadow-xl">
+<!-- Vinyl Grooves Background -->
+<div class="absolute inset-0 vinyl-grooves opacity-50 pointer-events-none"></div>
+<h2 class="font-h3 text-h3 text-on-surface mb-8 relative z-10 text-center">Skill Matrix</h2>
+<div class="relative w-[300px] h-[300px] flex items-center justify-center">
+<!-- Spindle Center (Brass) -->
+<div class="absolute w-6 h-6 rounded-full bg-secondary shadow-[inset_0_-2px_4px_rgba(0,0,0,0.5)] border border-secondary-container z-20 flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-on-secondary opacity-50"></div>
+</div>
+<!-- Concentric Grooves -->
+<div class="absolute w-[280px] h-[280px] rounded-full border border-outline-variant opacity-30"></div>
+<div class="absolute w-[220px] h-[220px] rounded-full border border-outline-variant opacity-40"></div>
+<div class="absolute w-[160px] h-[160px] rounded-full border border-outline-variant opacity-50"></div>
+<div class="absolute w-[100px] h-[100px] rounded-full border border-outline-variant opacity-60"></div>
+<!-- Radar Axis Lines -->
+<svg class="absolute inset-0 w-full h-full" viewbox="0 0 300 300">
+<line stroke="#454652" stroke-dasharray="2,2" stroke-width="1" x1="150" x2="150" y1="150" y2="10"></line>
+<line stroke="#454652" stroke-dasharray="2,2" stroke-width="1" x1="150" x2="283" y1="150" y2="108"></line>
+<line stroke="#454652" stroke-dasharray="2,2" stroke-width="1" x1="150" x2="232" y1="150" y2="263"></line>
+<line stroke="#454652" stroke-dasharray="2,2" stroke-width="1" x1="150" x2="68" y1="150" y2="263"></line>
+<line stroke="#454652" stroke-dasharray="2,2" stroke-width="1" x1="150" x2="17" y1="150" y2="108"></line>
+<!-- The Data Patch (Deep Indigo fill, Rust Red stroke) -->
+<polygon class="drop-shadow-lg" fill="rgba(26, 35, 126, 0.65)" points="150,40 250,130 190,240 100,220 60,110" stroke="#64051c" stroke-linejoin="round" stroke-width="3"></polygon>
+<!-- Data Points (Rivets) -->
+<circle cx="150" cy="40" fill="#ffd245" r="4" stroke="#3d2f00" stroke-width="1"></circle>
+<circle cx="250" cy="130" fill="#ffd245" r="4" stroke="#3d2f00" stroke-width="1"></circle>
+<circle cx="190" cy="240" fill="#ffd245" r="4" stroke="#3d2f00" stroke-width="1"></circle>
+<circle cx="100" cy="220" fill="#ffd245" r="4" stroke="#3d2f00" stroke-width="1"></circle>
+<circle cx="60" cy="110" fill="#ffd245" r="4" stroke="#3d2f00" stroke-width="1"></circle>
+</svg>
+<!-- Labels -->
+<span class="absolute top-[-10px] font-technical-label text-technical-label text-on-surface bg-surface-container px-2 py-0.5 border border-outline-variant">FRONT</span>
+<span class="absolute right-[-20px] top-[100px] font-technical-label text-technical-label text-on-surface bg-surface-container px-2 py-0.5 border border-outline-variant">BACK</span>
+<span class="absolute bottom-[-10px] right-[40px] font-technical-label text-technical-label text-on-surface bg-surface-container px-2 py-0.5 border border-outline-variant">INFRA</span>
+<span class="absolute bottom-[-10px] left-[40px] font-technical-label text-technical-label text-on-surface bg-surface-container px-2 py-0.5 border border-outline-variant">DESIGN</span>
+<span class="absolute left-[-20px] top-[100px] font-technical-label text-technical-label text-on-surface bg-surface-container px-2 py-0.5 border border-outline-variant">DATA</span>
+</div>
+</div>
+<!-- The Care Label -->
+<div class="bg-inverse-surface text-inverse-on-surface p-8 shadow-[0_8px_16px_rgba(0,0,0,0.4)] relative mx-4 transform rotate-1">
+<!-- Stitched Borders (Top & Bottom) -->
+<div class="absolute top-2 left-2 right-2 border-t-2 border-dashed border-outline-variant opacity-50"></div>
+<div class="absolute bottom-2 left-2 right-2 border-b-2 border-dashed border-outline-variant opacity-50"></div>
+<div class="text-center border-b-2 border-inverse-on-surface pb-4 mb-6">
+<span class="material-symbols-outlined text-[48px] mb-2" data-icon="laundry" style="font-variation-settings: 'FILL' 0;">laundry</span>
+<h3 class="font-h3 text-[1.5rem] font-bold uppercase tracking-widest">Care Instructions</h3>
+<p class="font-technical-label text-technical-label mt-2">LOT NO. 042-X</p>
+</div>
+<div class="space-y-4 font-technical-label text-[0.85rem] uppercase tracking-wider leading-relaxed">
+<p class="flex justify-between items-center border-b border-inverse-on-surface/20 pb-1">
+<span>Material</span>
+<span class="font-bold">100% Organic Code</span>
+</p>
+<p class="flex justify-between items-center border-b border-inverse-on-surface/20 pb-1">
+<span>Environment</span>
+<span class="font-bold">Run in Production</span>
+</p>
+<p class="flex justify-between items-center border-b border-inverse-on-surface/20 pb-1">
+<span>Maintenance</span>
+<span class="font-bold">Refactor Often</span>
+</p>
+<p class="flex justify-between items-center border-b border-inverse-on-surface/20 pb-1 text-error-container">
+<span>Warning</span>
+<span class="font-bold">Do Not Bleach History</span>
+</p>
+</div>
+<div class="mt-8 flex justify-between items-end">
+<div class="flex flex-col gap-1">
+<!-- Faux Barcode -->
+<div class="flex h-8 gap-[2px]">
+<div class="w-1 bg-inverse-on-surface"></div>
+<div class="w-2 bg-inverse-on-surface"></div>
+<div class="w-1 bg-inverse-on-surface"></div>
+<div class="w-[2px] bg-inverse-on-surface"></div>
+<div class="w-3 bg-inverse-on-surface"></div>
+<div class="w-1 bg-inverse-on-surface"></div>
+<div class="w-[2px] bg-inverse-on-surface"></div>
+<div class="w-2 bg-inverse-on-surface"></div>
+<div class="w-1 bg-inverse-on-surface"></div>
+<div class="w-[2px] bg-inverse-on-surface"></div>
+<div class="w-2 bg-inverse-on-surface"></div>
+</div>
+<span class="font-technical-label text-[10px]">RN: 88492</span>
+</div>
+<span class="font-h3 text-[1.2rem] italic">Analog.</span>
+</div>
+</div>
+</aside>
+<!-- Right Column: Experience Log ("Patches & Pockets") -->
+<section class="lg:col-span-7 flex flex-col gap-12 pt-8">
+<div class="border-b-2 border-outline-variant pb-4 mb-4">
+<h1 class="font-h1 text-h1 text-on-background">Field Notes</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">A ledger of applied craftsmanship and deployed systems.</p>
+</div>
+<!-- Experience Entry 1 (Denim Pocket Style) -->
+<article class="relative p-8 bg-surface-container-high rounded-sm shadow-lg group">
+<!-- Denim Pocket Base -->
+<div class="absolute inset-0 denim-texture rounded-sm opacity-90"></div>
+<!-- Inner Stitching (The Pocket Seam) -->
+<div class="absolute inset-[16px] border-2 border-dashed border-on-primary-fixed-variant opacity-60 pointer-events-none rounded-sm"></div>
+<div class="absolute inset-[20px] border border-solid border-on-primary-fixed-variant opacity-30 pointer-events-none rounded-sm"></div>
+<!-- Leather Patch (Role Title) -->
+<div class="relative z-10 bg-tertiary-container text-on-tertiary-container px-4 py-2 border-2 border-error-container inline-block shadow-md mb-6 transform -rotate-1">
+<h3 class="font-technical-label text-[1rem] tracking-widest uppercase">Lead Frontend Engineer</h3>
+</div>
+<!-- Hang Tag (Editable Attributes) -->
+<div class="absolute -right-6 top-8 z-20 transform rotate-6 transition-transform group-hover:rotate-12 duration-300">
+<div class="bg-secondary-fixed text-on-secondary-container p-3 border border-secondary-container shadow-md flex flex-col gap-2 w-32 relative">
+<!-- Tag Hole & String -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-background border border-secondary-container z-30"></div>
+<div class="absolute -top-12 left-1/2 w-px h-10 bg-outline-variant z-20"></div>
+<div class="font-technical-label text-[0.65rem] border-b border-on-secondary-container/20 pb-1 mb-1 text-center">ATTRIBUTES</div>
+<div class="flex justify-between items-center font-technical-label text-[0.75rem]">
+<span>FRONT</span>
+<span class="bg-background text-on-background px-1.5 py-0.5 rounded">4/5</span>
+</div>
+<div class="flex justify-between items-center font-technical-label text-[0.75rem]">
+<span>DESIGN</span>
+<span class="bg-background text-on-background px-1.5 py-0.5 rounded">3/5</span>
+</div>
+</div>
+</div>
+<!-- Content Area -->
+<div class="relative z-10 bg-background/80 p-6 border border-outline-variant mt-2 backdrop-blur-sm">
+<div class="flex justify-between items-baseline mb-4">
+<span class="font-h3 text-[1.5rem] text-primary">StitchFix Digital</span>
+<span class="font-technical-label text-technical-label text-outline">2021 — PRESENT</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-6 leading-relaxed">
+                        Architected the core component library using strict atomic design principles. Wove together complex state management patterns to ensure a seamless, tactile user interface across high-traffic e-commerce flows.
+                    </p>
+<!-- Rivet Buttons for Tech Stack -->
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-1.5 rounded-full bg-surface-container-highest border border-outline-variant text-on-surface font-technical-label text-[0.7rem] uppercase shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary block"></span>
+                            React
+                        </span>
+<span class="px-4 py-1.5 rounded-full bg-surface-container-highest border border-outline-variant text-on-surface font-technical-label text-[0.7rem] uppercase shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary block"></span>
+                            TypeScript
+                        </span>
+<span class="px-4 py-1.5 rounded-full bg-surface-container-highest border border-outline-variant text-on-surface font-technical-label text-[0.7rem] uppercase shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary block"></span>
+                            Tailwind
+                        </span>
+</div>
+</div>
+</article>
+<!-- Experience Entry 2 (Canvas Tool Bag Style) -->
+<article class="relative p-8 bg-surface-container rounded-sm shadow-lg border-2 border-outline-variant group">
+<!-- Inner Stitching -->
+<div class="absolute inset-[8px] border border-dashed border-outline opacity-50 pointer-events-none rounded-sm"></div>
+<!-- Label Patch -->
+<div class="relative z-10 bg-inverse-surface text-inverse-on-surface px-4 py-1 border border-outline-variant inline-block shadow-sm mb-6">
+<h3 class="font-technical-label text-[1rem] tracking-widest uppercase">Systems Architect</h3>
+</div>
+<!-- Hang Tag -->
+<div class="absolute -right-4 top-12 z-20 transform rotate-2 transition-transform group-hover:-rotate-3 duration-300">
+<div class="bg-secondary-fixed text-on-secondary-container p-3 border border-secondary-container shadow-md flex flex-col gap-2 w-32 relative">
+<div class="absolute -top-2 left-4 w-3 h-3 rounded-full bg-background border border-secondary-container z-30"></div>
+<div class="font-technical-label text-[0.65rem] border-b border-on-secondary-container/20 pb-1 mb-1 text-center">ATTRIBUTES</div>
+<div class="flex justify-between items-center font-technical-label text-[0.75rem]">
+<span>BACK</span>
+<span class="bg-background text-on-background px-1.5 py-0.5 rounded">5/5</span>
+</div>
+<div class="flex justify-between items-center font-technical-label text-[0.75rem]">
+<span>INFRA</span>
+<span class="bg-background text-on-background px-1.5 py-0.5 rounded">4/5</span>
+</div>
+<div class="flex justify-between items-center font-technical-label text-[0.75rem]">
+<span>DATA</span>
+<span class="bg-background text-on-background px-1.5 py-0.5 rounded">4/5</span>
+</div>
+</div>
+</div>
+<!-- Content Area -->
+<div class="relative z-10">
+<div class="flex justify-between items-baseline mb-4 border-b border-outline-variant/30 pb-2">
+<span class="font-h3 text-[1.5rem] text-secondary-fixed">Heavy Machinery Corp</span>
+<span class="font-technical-label text-technical-label text-outline">2018 — 2021</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-6 leading-relaxed">
+                        Forged robust backend services capable of handling massive data throughput. Designed the primary ETL pipelines and managed the migration from legacy monolithic structures to a distributed microservices architecture.
+                    </p>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-1.5 rounded-full bg-background border border-outline-variant text-on-surface font-technical-label text-[0.7rem] uppercase flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-tint block"></span>
+                            Go
+                        </span>
+<span class="px-4 py-1.5 rounded-full bg-background border border-outline-variant text-on-surface font-technical-label text-[0.7rem] uppercase flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-tint block"></span>
+                            Kubernetes
+                        </span>
+<span class="px-4 py-1.5 rounded-full bg-background border border-outline-variant text-on-surface font-technical-label text-[0.7rem] uppercase flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-tint block"></span>
+                            PostgreSQL
+                        </span>
+</div>
+</div>
+</article>
+<!-- Decorative Thread/Ruler at Bottom -->
+<div class="mt-8 flex items-center justify-center gap-4 opacity-50">
+<div class="h-px w-full bg-outline-variant"></div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="straighten" style="font-variation-settings: 'FILL' 0;">straighten</span>
+<div class="h-px w-full bg-outline-variant"></div>
+</div>
+</section>
+</main>
+<!-- JSON Footer -->
+<footer class="bg-black dark:bg-stone-950 w-full border-t-4 border-double border-stone-900 border-t-2 border-stone-800 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-6 w-full max-w-screen-2xl mx-auto">
+<div class="font-newsreader uppercase tracking-widest text-xs text-stone-500">
+                © 2024 ANALOG CODEWORKS — STITCHED WITH PRECISION
+            </div>
+<nav class="flex gap-8 font-newsreader uppercase tracking-widest text-xs">
+<a class="text-stone-600 hover:text-stone-400 hover:underline decoration-red-900 decoration-2 opacity-80 hover:opacity-100 transition-opacity" href="#">GitHub</a>
+<a class="text-stone-600 hover:text-stone-400 hover:underline decoration-red-900 decoration-2 opacity-80 hover:opacity-100 transition-opacity" href="#">LinkedIn</a>
+<a class="text-stone-600 hover:text-stone-400 hover:underline decoration-red-900 decoration-2 opacity-80 hover:opacity-100 transition-opacity" href="#">Archive</a>
+</nav>
+</div>
+</footer>
+</body></html>

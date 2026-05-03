@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Craftsman.dev - Engineer Portfolio Mock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700;6..72,800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="v2.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="logo" href="#top">CRAFTSMAN.DEV</a>
+      <nav aria-label="Primary">
+        <a href="#top">Home</a>
+        <a href="#matrix">Skills</a>
+        <a href="#archive">Projects</a>
+        <a href="#about">About</a>
+        <a href="#editor">Editor</a>
+      </nav>
+      <a class="hire" href="mailto:hello@example.com">Hire Me</a>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="ticket">FULL-STACK ENGINEER</span>
+          <h1>Stitching Code <span>With Precision.</span></h1>
+          <p>
+            I build robust, high-fidelity digital experiences. Vintage clothing, vinyl records,
+            and durable software share the same rule: details matter when the work is meant to last.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-yellow" href="#archive">View Projects</a>
+            <a class="btn btn-dark" href="#about">Read Manual</a>
+          </div>
+        </div>
+
+        <div class="turntable" aria-label="Skill radar preview">
+          <div class="slipmat"></div>
+          <div class="record">
+            <div class="record-shine"></div>
+            <div class="label-card">
+              <svg class="hero-radar" viewBox="0 0 120 120" aria-hidden="true">
+                <polygon class="radar-paper" points="60,8 110,45 91,104 29,104 10,45"></polygon>
+                <polygon class="radar-fill" points="60,19 96,50 82,87 34,94 21,48"></polygon>
+                <line x1="60" y1="60" x2="60" y2="8"></line>
+                <line x1="60" y1="60" x2="110" y2="45"></line>
+                <line x1="60" y1="60" x2="91" y2="104"></line>
+                <line x1="60" y1="60" x2="29" y2="104"></line>
+                <line x1="60" y1="60" x2="10" y2="45"></line>
+              </svg>
+              <span class="spindle"></span>
+            </div>
+          </div>
+          <span class="axis axis-front">FRONT</span>
+          <span class="axis axis-back">BACK</span>
+          <span class="axis axis-db">DB</span>
+          <span class="axis axis-infra">INFRA</span>
+          <span class="axis axis-ci">CI/CD</span>
+        </div>
+      </section>
+
+      <section class="section recent">
+        <div class="archive-head">
+          <h2>Recent Patches</h2>
+          <a href="#archive">View Archive →</a>
+        </div>
+        <div class="patch-grid">
+          <article class="featured-patch">
+            <span class="pin-label">FEATURED</span>
+            <div>
+              <h3>Analog E-Commerce</h3>
+              <p>A high-fidelity storefront for vintage audio equipment and secondhand clothing, built with a deeply tactile design system.</p>
+            </div>
+            <div class="mini-tags">
+              <span>Next.js</span><span>Tailwind</span><span>Stripe</span>
+            </div>
+          </article>
+          <article class="small-patch">
+            <span class="material-dot"></span>
+            <h3>DenimDB Migrator</h3>
+            <p>A migration utility for complex product attributes, inventory history, and rollback generation.</p>
+            <div class="mini-tags">
+              <span>Go</span><span>PostgreSQL</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="matrix" class="section matrix-grid">
+        <aside class="skill-spindle">
+          <div class="panel-title">
+            <span>SPINDLE 05</span>
+            <h2>Skill Matrix</h2>
+          </div>
+          <svg class="matrix-radar" viewBox="0 0 320 320" role="img" aria-label="Five category skill radar">
+            <circle cx="160" cy="160" r="136"></circle>
+            <circle cx="160" cy="160" r="102"></circle>
+            <circle cx="160" cy="160" r="68"></circle>
+            <circle cx="160" cy="160" r="34"></circle>
+            <g id="axis-lines"></g>
+            <polygon id="skill-polygon" points=""></polygon>
+            <g id="skill-points"></g>
+          </svg>
+          <div class="skill-tabs" id="skill-tabs"></div>
+        </aside>
+
+        <div class="field-notes">
+          <div class="section-head">
+            <span>FIELD NOTES</span>
+            <h2>Field Notes</h2>
+            <p>A ledger of applied craftsmanship and deployed systems. Choose a skill on the spindle to update this note.</p>
+          </div>
+          <div class="denim-patch">
+            <span class="patch-label" id="active-skill-title">Frontend</span>
+            <div class="attribute-hangtag" id="active-skill-part">Jacket Front</div>
+            <p id="active-skill-text"></p>
+            <div class="stack-list" id="active-skill-stack"></div>
+          </div>
+
+          <div class="care-label">
+            <span class="care-icon">⌁</span>
+            <h3>Care Instructions</h3>
+            <dl>
+              <div><dt>Material</dt><dd>Organic Code</dd></div>
+              <div><dt>Fit</dt><dd>Feature First</dd></div>
+              <div><dt>Maintenance</dt><dd>Refactor Often</dd></div>
+              <div><dt>Warning</dt><dd>Do Not Bleach Context</dd></div>
+            </dl>
+            <div class="barcode" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="archive" class="section archive">
+        <div class="section-head centered">
+          <span>PROJECT CRATE</span>
+          <h2>Selected Works</h2>
+          <p>A curated collection of digital artifacts, engineered with precision and pressed for longevity.</p>
+        </div>
+        <div class="filter-row" id="filter-row"></div>
+        <div class="crate" id="project-crate"></div>
+      </section>
+
+      <section id="about" class="section about-layout">
+        <div class="portrait-card">
+          <span class="issue-label">ISSUE 01</span>
+          <div class="portrait-art" aria-hidden="true"></div>
+          <div class="portrait-meta">
+            <span>VOL. XLII</span>
+            <span>ANALOG CODEWORKS</span>
+          </div>
+        </div>
+        <div class="liner-notes">
+          <span class="small-label">LINER NOTES</span>
+          <h2>The Articulate <span>Craftsman.</span></h2>
+          <div class="note-card">
+            <p>
+              I do not just write software; I stitch it together. A well-built system should age
+              like selvedge denim: shaped by use, repaired with care, and stronger because its seams are visible.
+            </p>
+            <p>
+              Vinyl grooves, garment tags, and deployment pipelines all reward precision. This portfolio treats
+              skills and experience as physical artifacts you can inspect.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="editor" class="section editor-layout">
+        <form class="manual-form" id="experience-form">
+          <div class="section-head">
+            <span>ADD PATCH</span>
+            <h2>経験を追加する</h2>
+          </div>
+          <label>
+            タイトル
+            <input id="title-input" value="Record Crate Inventory">
+          </label>
+          <label>
+            役割
+            <input id="role-input" value="Full-stack Engineer">
+          </label>
+          <label>
+            概要
+            <textarea id="desc-input" rows="4">古着とレコードの在庫、商品属性、検索条件を扱う管理ツールの想定プロジェクト。</textarea>
+          </label>
+          <fieldset>
+            <legend>属性</legend>
+            <div class="check-grid" id="attribute-checks"></div>
+          </fieldset>
+          <button class="btn btn-yellow full" type="submit">棚に追加</button>
+        </form>
+
+        <div class="attribute-editor">
+          <div class="section-head">
+            <span>ATTRIBUTE TUNER</span>
+            <h2>属性名とスコアを変える</h2>
+          </div>
+          <div id="attribute-editor-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© ANALOG CODEWORKS / MOCK</span>
+      <span>GITHUB / LINKEDIN / ARCHIVE</span>
+    </footer>
+
+    <script src="v2.js"></script>
+  </body>
+</html>

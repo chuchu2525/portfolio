@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About - Craftsman.dev</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "surface-tint": "#bdc2ff",
+                        "on-secondary-fixed": "#241a00",
+                        "secondary-container": "#e4b600",
+                        "on-secondary-container": "#5d4900",
+                        "tertiary-fixed": "#ffdadb",
+                        "on-surface-variant": "#c6c5d4",
+                        "on-primary": "#1b247f",
+                        "inverse-primary": "#4c56af",
+                        "on-primary-container": "#8690ee",
+                        "surface-container-highest": "#353534",
+                        "tertiary-fixed-dim": "#ffb2b6",
+                        "on-tertiary-fixed-variant": "#842131",
+                        "on-secondary": "#3d2f00",
+                        "on-error": "#690005",
+                        "surface-container": "#201f1f",
+                        "secondary": "#ffd245",
+                        "background": "#131313",
+                        "inverse-on-surface": "#313030",
+                        "outline-variant": "#454652",
+                        "secondary-fixed": "#ffe08a",
+                        "outline": "#908f9d",
+                        "surface": "#131313",
+                        "on-secondary-fixed-variant": "#574400",
+                        "secondary-fixed-dim": "#f0c115",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "on-surface": "#e5e2e1",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "on-primary-fixed": "#000767",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary": "#ffb2b6",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-fixed": "#40000d",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#e0e0ff",
+                        "on-primary-fixed-variant": "#343d96",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary": "#65061c",
+                        "primary": "#bdc2ff",
+                        "primary-container": "#1a237e",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-container": "#64051c",
+                        "on-tertiary-container": "#ed707c",
+                        "surface-variant": "#353534",
+                        "surface-bright": "#393939"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "margin": "48px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Newsreader"],
+                        "technical-label": ["Space Grotesk"],
+                        "h1": ["Newsreader"],
+                        "body-md": ["Space Grotesk"],
+                        "h2": ["Newsreader"],
+                        "body-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "h3": ["2rem", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "technical-label": ["0.75rem", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "h1": ["4.5rem", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["1rem", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "h2": ["3rem", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-lg": ["1.125rem", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .vinyl-grooves {
+            background-image: repeating-radial-gradient(
+                circle at center,
+                transparent 0,
+                transparent 2px,
+                rgba(255, 255, 255, 0.03) 3px,
+                transparent 4px
+            );
+        }
+        .denim-texture {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.08"/></svg>');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md selection:bg-secondary selection:text-on-secondary">
+<nav class="bg-indigo-950 dark:bg-[#1A237E] docked full-width top-0 border-b-2 border-dashed border-indigo-400/30 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)] z-50">
+<div class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-black italic text-yellow-500 dark:text-yellow-500 tracking-tighter">
+                CRAFTSMAN.DEV
+            </div>
+<ul class="hidden md:flex gap-8 font-newsreader tracking-tight text-lg">
+<li><a class="text-stone-300/80 hover:text-white transition-colors hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150 block py-1" href="#">Home</a></li>
+<li><a class="text-stone-300/80 hover:text-white transition-colors hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150 block py-1" href="#">Skills</a></li>
+<li><a class="text-stone-300/80 hover:text-white transition-colors hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150 block py-1" href="#">Projects</a></li>
+<li><a class="text-yellow-500 border-b-2 border-red-700 pb-1 hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150 block" href="#">About</a></li>
+</ul>
+<button class="text-yellow-500 dark:text-[#EAB308] border border-yellow-500/50 px-6 py-2 hover:bg-white/5 hover:text-yellow-400 transition-all duration-300 active:scale-95 transform transition-transform duration-150 font-newsreader tracking-tight text-lg hidden md:block">
+                Hire Me
+            </button>
+<button class="md:hidden text-yellow-500">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu</span>
+</button>
+</div>
+</nav>
+<main class="flex-grow flex flex-col items-center w-full relative overflow-hidden vinyl-grooves">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,theme(colors.primary-container)_0%,transparent_50%)] opacity-30 pointer-events-none"></div>
+<section class="w-full max-w-container-max mx-auto px-gutter py-margin mt-12">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+<div class="md:col-span-5 relative group">
+<div class="absolute inset-0 bg-primary-container translate-x-4 translate-y-4 border-2 border-dashed border-outline-variant -z-10"></div>
+<div class="bg-surface-container-highest border-2 border-outline p-4 relative">
+<div class="absolute top-0 right-0 bg-secondary text-on-secondary font-technical-label text-technical-label px-3 py-1 -translate-y-1/2 translate-x-4 border-2 border-on-secondary shadow-[2px_2px_0_0_theme(colors.on-secondary)]">
+                            ISSUE 01
+                        </div>
+<img alt="" class="w-full aspect-[3/4] object-cover filter grayscale contrast-125 sepia-[.2]" data-alt="A vintage-style portrait of a craftsman in a dimly lit workshop, illuminated by warm, high-contrast overhead lighting. The subject is wearing a faded, heavy-weight denim jacket, leaning against a workbench scattered with analog tools and electronic components. The aesthetic is gritty and textured, utilizing deep blacks, indigo shadows, and rich amber highlights. The mood is deeply focused and professional, capturing the intersection of physical craft and technical engineering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXuhrmiyZW_VBWgVBjDmE9uQ7q1-M7DA0zG77wimSGlKuPLpZOXMHd11_-BMxWllF-p_EajS3bHxnbfOHHOWLzcFBO9jbe5kXBG3xEmhDXd4M20UigaVx3fr2f3yR36M0pthGM-Q-N2lgrr9D7gdnoq0nBr75dD2NCxpKKxcHkbkbiqB8LHCqUelPiMdJ1KxQeHBjLPDF1M2U54ri_E3GvQffhA8jzWGFX8-17o_bn0RPY0J6KOSGvpeid5F9beEmCosAX4wKf6hg"/>
+<div class="mt-4 border-t-2 border-outline pt-2 flex justify-between items-center font-technical-label text-technical-label text-on-surface-variant">
+<span>VOL. XLII</span>
+<span>ANALOG CODEWORKS</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-7 flex flex-col justify-center space-y-8 md:pl-12 pt-8 md:pt-0">
+<div class="space-y-4 relative">
+<span class="font-technical-label text-technical-label text-secondary tracking-[0.2em] uppercase block">Liner Notes</span>
+<h1 class="font-h1 text-h1 text-on-background leading-none">
+                            The Articulate <br/><span class="text-secondary italic">Craftsman.</span>
+</h1>
+<div class="h-1 w-24 bg-error-container mt-6"></div>
+</div>
+<div class="bg-surface-container border border-outline-variant p-8 relative shadow-[8px_8px_0_0_theme(colors.background),8px_8px_0_2px_theme(colors.outline-variant)]">
+<div class="absolute -left-3 top-8 w-6 h-6 bg-secondary rounded-full border-2 border-background flex items-center justify-center">
+<div class="w-2 h-2 bg-background rounded-full"></div>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6 relative z-10">
+                            I don't just write software; I stitch it together. My approach to engineering is heavily influenced by the tactile world of high-quality craftsmanship. Just as a selvedge denim jacket develops character and molds to its wearer over years of use, robust architecture should be built to withstand the elements of scale and time.
+                        </p>
+<p class="font-body-md text-body-md text-outline relative z-10">
+                            The meticulous grooving of a vinyl record, the satisfying weight of heavy paper stock—these aren't just aesthetic preferences; they represent a philosophy of permanence. In an industry obsessed with the ephemeral, I build digital artifacts meant to endure.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<section class="w-full max-w-container-max mx-auto px-gutter py-margin mb-24">
+<div class="bg-primary-container denim-texture p-8 md:p-16 border-4 border-outline-variant relative overflow-hidden">
+<div class="absolute inset-0 vinyl-grooves opacity-20"></div>
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div>
+<h2 class="font-h2 text-h2 text-primary mb-6">Crafting durable code like a well-worn pair of jeans.</h2>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">album</span>
+<div>
+<h3 class="font-h3 text-h3 text-on-primary-container text-xl mb-1">High-Fidelity Architecture</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Designing systems with the same precision required to cut masters for vinyl pressing. No skipped grooves.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">architecture</span>
+<div>
+<h3 class="font-h3 text-h3 text-on-primary-container text-xl mb-1">Selvedge Engineering</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Finishing edges and securing seams. Clean code isn't just about functionality; it's about structural integrity preventing future fraying.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="relative">
+<div class="aspect-square rounded-full border-8 border-surface-container-highest p-2 bg-background shadow-[0_0_40px_rgba(0,0,0,0.8)] flex items-center justify-center group overflow-hidden relative">
+<div class="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_0deg,rgba(255,255,255,0.05)_45deg,transparent_90deg,rgba(255,255,255,0.05)_135deg,transparent_180deg,rgba(255,255,255,0.05)_225deg,transparent_270deg,rgba(255,255,255,0.05)_315deg,transparent_360deg)] group-hover:rotate-180 transition-transform duration-[3000ms] ease-linear"></div>
+<div class="w-3/4 h-3/4 rounded-full bg-error-container border-4 border-error flex flex-col items-center justify-center text-on-error relative z-10 shadow-inner">
+<span class="font-technical-label text-technical-label tracking-widest opacity-80">SIDE A</span>
+<span class="font-h3 text-h3 mt-2 text-center leading-none">THE<br/>STACK</span>
+<div class="w-4 h-4 bg-background rounded-full mt-4 border-2 border-outline-variant shadow-inner"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full border-t-4 border-double border-stone-900 bg-black dark:bg-stone-950 flat no shadows z-10 relative">
+<div class="border-t-2 border-stone-800 flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-6 w-full">
+<div class="font-newsreader uppercase tracking-widest text-xs text-stone-500">
+                © 2024 ANALOG CODEWORKS — STITCHED WITH PRECISION
+            </div>
+<ul class="flex gap-6 font-newsreader uppercase tracking-widest text-xs">
+<li><a class="text-stone-600 hover:text-stone-400 hover:underline decoration-red-900 decoration-2 opacity-80 hover:opacity-100 transition-opacity" href="#">GitHub</a></li>
+<li><a class="text-stone-600 hover:text-stone-400 hover:underline decoration-red-900 decoration-2 opacity-80 hover:opacity-100 transition-opacity" href="#">LinkedIn</a></li>
+<li><a class="text-stone-600 hover:text-stone-400 hover:underline decoration-red-900 decoration-2 opacity-80 hover:opacity-100 transition-opacity" href="#">Archive</a></li>
+</ul>
+</div>
+</footer>
+</body></html>
