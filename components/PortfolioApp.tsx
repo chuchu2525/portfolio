@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import type { CSSProperties } from "react";
 import {
   getAttributeById,
   getContributingProjects,
@@ -25,6 +26,15 @@ function getPoint(index: number, total: number, ratio = 1) {
 
 function pointsToString(points: Array<{ x: number; y: number }>) {
   return points.map((point) => `${point.x.toFixed(1)},${point.y.toFixed(1)}`).join(" ");
+}
+
+function getHeroAxisStyle(index: number, total: number): CSSProperties {
+  const angle = -Math.PI / 2 + (Math.PI * 2 * index) / total;
+
+  return {
+    left: `${50 + Math.cos(angle) * 42}%`,
+    top: `${50 + Math.sin(angle) * 42}%`
+  };
 }
 
 function RadarChart({
@@ -186,11 +196,17 @@ export function PortfolioApp() {
                 <span className="spindle" />
               </div>
             </div>
-            {skillAttributes.slice(0, 6).map((attribute, index) => (
-              <span className={`axis axis-${index + 1}`} key={attribute.id}>
-                {attribute.label}
-              </span>
-            ))}
+            <div className="hero-axis-ring" aria-hidden="true">
+              {skillAttributes.map((attribute, index) => (
+                <span className="axis-label" key={attribute.id} style={getHeroAxisStyle(index, skillAttributes.length)}>
+                  {attribute.label}
+                </span>
+              ))}
+            </div>
+            <div className="hero-axis-caption" aria-hidden="true">
+              <span>EXPERIENCE SCORE</span>
+              <span>10 ATTRIBUTES</span>
+            </div>
           </div>
         </section>
 
