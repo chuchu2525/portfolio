@@ -14,12 +14,12 @@ This ExecPlan is a living document. The sections `Progress`, `Surprises & Discov
 - [x] (2026-05-05 JST) 現在の repository が Tailwind をまだ使っていないことを確認した。`package.json` に `tailwindcss` と `@tailwindcss/postcss` はなく、`app/globals.css` に `@import "tailwindcss";` もない。
 - [x] (2026-05-05 JST) `docs/requirements.md` が working tree に存在することを確認した。
 - [x] (2026-05-05 JST) Tailwind 移行 ExecPlan を、規約ファイルではなく `.agent/exec-plans/tailwind-css-migration.md` に作成した。
-- [ ] Tailwind 採用方針を `docs/requirements.md` に追記する。
-- [ ] Tailwind 依存関係と PostCSS 設定を追加する。
-- [ ] `app/globals.css` を Tailwind import と global base のみに縮小する。
-- [ ] `components/PortfolioApp.tsx` の既存 className を Tailwind utility class へ段階的に移行する。
-- [ ] 複雑な装飾、疑似要素、keyframes の扱いを最小限の CSS または inline style に整理する。
-- [ ] 型チェック、production build、ローカル表示で検証する。
+- [x] (2026-05-05 JST) Tailwind 採用方針を `docs/requirements.md` に追記した。
+- [x] (2026-05-05 JST) `package.json` に Tailwind 依存関係を追記し、`postcss.config.mjs` を追加した。npm install は network restriction によりユーザー側で実行する前提にした。
+- [x] (2026-05-05 JST) `app/globals.css` を Tailwind import、global base、複雑な装飾用の少数 class に縮小した。
+- [x] (2026-05-05 JST) `components/PortfolioApp.tsx` の主要レイアウトと UI className を Tailwind utility class 中心へ移行した。
+- [x] (2026-05-05 JST) レコード盤、レーダー、画像テクスチャ、バーコードなどの複雑な装飾だけを最小限の CSS class として残した。
+- [x] (2026-05-06 JST) production build、typecheck、ローカル表示を検証した。Tailwind v4 が TSX を拾えていなかったため `@source "../app";` と `@source "../components";` を追加し、localhost:3000 で表示が復旧した。
 
 ## Surprises & Discoveries
 
@@ -31,6 +31,15 @@ This ExecPlan is a living document. The sections `Progress`, `Surprises & Discov
 
 - Observation: この repository の ExecPlan は `.agent/exec-plans/` 配下に 1 計画 1 ファイルで置く必要がある。
   Evidence: User clarified the repository-specific placement rule on 2026-05-05.
+
+- Observation: sandboxed environment では npm registry へ名前解決できず、Tailwind 依存をインストールできなかった。ユーザーがローカルで `npm install` を実行する前提に切り替えた。
+  Evidence: `npm install -D tailwindcss @tailwindcss/postcss` failed with `getaddrinfo ENOTFOUND registry.npmjs.org`; user said they will run it locally.
+
+- Observation: Tailwind v4 はこの repository では自動 source detection だけだと `components/PortfolioApp.tsx` の utility class を十分に生成しなかった。
+  Evidence: Browser showed mostly unstyled HTML while custom CSS classes still applied. The generated CSS lacked utility rules until `@source "../app";` and `@source "../components";` were added to `app/globals.css`.
+
+- Observation: `next build` と `next dev` を同時に同じ `.next` directory へ走らせると、dev server が stale chunks を参照して Internal Server Error になった。
+  Evidence: dev server logged `Cannot find module './778.js'` and `__webpack_modules__[moduleId] is not a function`. Stopping dev servers, deleting `.next`, and restarting `npm run dev -- -p 3000` restored the page.
 
 ## Decision Log
 
@@ -54,9 +63,15 @@ This ExecPlan is a living document. The sections `Progress`, `Surprises & Discov
   Rationale: repository-specific rule requires one ExecPlan per Markdown file under `.agent/exec-plans/`. `.agent/PLANS.md` is the guidance document, not the location for individual plans.
   Date/Author: 2026-05-05 / Codex
 
+- Decision: Tailwind v4 の source を `app/globals.css` で明示する。
+  Rationale: 自動検出だけでは utility が生成されず、画面がほぼ未スタイルになったため。`app` と `components` を明示すれば、この repository の主要 TSX className を確実に拾える。
+  Date/Author: 2026-05-06 / Codex
+
 ## Outcomes & Retrospective
 
-まだ実装は開始していない。このセクションは、Tailwind 導入、CSS 責務整理、表示検証が終わった時点で、達成したこと、残った課題、次に改善すべき点を追記する。
+Tailwind 導入、`globals.css` の責務縮小、`PortfolioApp.tsx` の Tailwind utility class 移行は完了した。`npm run build` と `npm run typecheck` は成功した。localhost:3000 の in-app browser 表示では、Hero の typography、CTA、レコード盤の先頭が表示される状態まで復旧した。
+
+残課題は、より広い desktop viewport と mobile viewport で細部を追加確認すること、Tailwind className が長くなった箇所を必要に応じて小さな React component へ分けることである。
 
 ## Context and Orientation
 
@@ -137,7 +152,7 @@ Tailwind 化の途中で表示が大きく崩れた場合は、セクション�
 
 ## Artifacts and Notes
 
-この計画作成時点の重要な状態は次の通りである。
+この計画作成時点および実装中の重要な状態は次の通りである。
 
     git status --short
      M app/globals.css
@@ -155,6 +170,12 @@ Tailwind 化の途中で表示が大きく崩れた場合は、セクション�
       @tailwindcss/postcss
 
 `app/layout.tsx` が `import "./globals.css";` を持つこと自体は維持する。問題は import 位置ではなく、`app/globals.css` に画面固有スタイルを持たせすぎていることである。
+
+Tailwind 依存が未インストールの状態でも、TypeScript の検証は通っている。
+
+    npm run typecheck
+    > yuukun-portfolio@0.1.0 typecheck
+    > tsc --noEmit
 
 ## Interfaces and Dependencies
 

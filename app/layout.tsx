@@ -3,11 +3,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://example.com"),
-  title: "CRAFTSMAN.DEV | Engineer Portfolio",
+  title: "YUU's room | Engineer Portfolio",
   description:
     "古着とレコードの質感で、Webアプリ開発の経験とエンジニアリングスキルを整理するポートフォリオ。",
   openGraph: {
-    title: "CRAFTSMAN.DEV | Engineer Portfolio",
+    title: "YUU's room | Engineer Portfolio",
     description:
       "古着とレコードをモチーフにした、フルスタック寄りエンジニアのポートフォリオ。",
     type: "website",

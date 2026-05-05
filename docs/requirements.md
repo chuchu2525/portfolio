@@ -404,6 +404,13 @@ type Project = {
 - レーダースコアは手入力ではなく、経験データの属性状態から集計する
 - 画像最適化、OGP、メタ情報を Next.js 側で扱う
 
+スタイリング方針:
+
+- Tailwind CSS を採用する
+- `app/globals.css` は Tailwind import、CSS変数、`html`、`body`、フォーム要素などの全体共通スタイルに限定する
+- セクションやコンポーネント固有の見た目は、原則として React コンポーネント側の Tailwind utility class で表現する
+- レコード盤、レーダー、縫い目、ラベルなどの複雑な装飾は、可読性を優先し、必要最小限の CSS class や inline style を併用してよい
+
 ## 非機能要件
 
 - モバイルでも読みやすい
