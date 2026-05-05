@@ -150,3 +150,7 @@ In crates/foo/planner.rs, define:
 上記の guidance に従えば、単一の stateless agent、または人間の初心者が ExecPlan を最初から最後まで読み、動作し観察可能な結果を生み出せます。これが基準です。SELF-CONTAINED、SELF-SUFFICIENT、NOVICE-GUIDING、OUTCOME-FOCUSED であること。
 
 plan を改訂するときは、変更内容がすべてのセクションに包括的に反映されていることを確認してください。living document sections も含みます。そして、plan の末尾に変更内容とその理由を説明する note を書いてください。ExecPlans は、ほぼすべてについて「何を」だけでなく「なぜ」を説明しなければなりません。
+
+## リポジトリ固有の配置ルール
+
+このリポジトリの ExecPlan は、必ず `.agent/exec-plans/` 配下に 1 計画 1 ファイルの Markdown として作成してください。これ以外の場所には作成しないでください。
