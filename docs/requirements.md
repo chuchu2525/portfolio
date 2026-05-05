@@ -393,12 +393,16 @@ type Project = {
 - Vite + React
 - 静的HTML/CSS/JS
 
-現時点の仮説:
+決定方針:
 
 - ポートフォリオとしては静的生成で十分
-- データは `src/content` または JSON/Markdown に寄せる
+- Next.js + React + TypeScript を採用する
+- Next.js は App Router を使い、`output: "export"` で静的ファイルとして書き出せる構成にする
+- データは TypeScript のデータファイルに寄せ、将来的に JSON/Markdown/CMS に移しやすい形にする
 - インタラクションは軽めにする
-- 画像最適化とOGPを考えるなら Astro または Next.js が候補
+- v2 の編集 UI は本番ページには出さず、登録済みデータから表示する
+- レーダースコアは手入力ではなく、経験データの属性状態から集計する
+- 画像最適化、OGP、メタ情報を Next.js 側で扱う
 
 ## 非機能要件
 

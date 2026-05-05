@@ -16,6 +16,7 @@ build/
 .next/
 out/
 .vite/
+*.tsbuildinfo
 
 # Logs
 *.log
