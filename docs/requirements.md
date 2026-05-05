@@ -419,6 +419,9 @@ type Project = {
 - レコード盤などのアニメーションは `prefers-reduced-motion` に対応する
 - Lighthouseで大きな問題が出ない程度のパフォーマンス
 - OGP、favicon、メタ情報を用意する
+- テスト方針と品質基準は `docs/test-design.md` を参照する
+- アクセシビリティは、まず品質目標として `WCAG 2.2 AA 相当` を目指す。ただし正式な適合宣言ではなく、自動テストと手動確認を組み合わせて主要な問題を防ぐ
+- ブラウザ確認は Chrome / Safari / Firefox、代表画面幅は mobile 390px / tablet 768px / desktop 1440px を標準にする
 
 ## コピー方針
 
