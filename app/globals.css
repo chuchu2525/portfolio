@@ -67,22 +67,8 @@ button {
     inset: 8%;
     border-radius: inherit;
     background:
-      radial-gradient(circle at 68% 24%, rgba(255, 255, 255, 0.18) 0 4%, transparent 5%),
       conic-gradient(from 22deg, transparent 0 8%, rgba(255, 255, 255, 0.12) 10%, transparent 19%, transparent 64%, rgba(255, 210, 69, 0.08) 69%, transparent 76%);
     mix-blend-mode: screen;
-  }
-
-  .record-grooves::after {
-    content: "";
-    position: absolute;
-    top: 27%;
-    right: 22%;
-    width: 9%;
-    aspect-ratio: 1;
-    border: 1px solid rgba(255, 210, 69, 0.35);
-    border-radius: 50%;
-    background: rgba(255, 210, 69, 0.12);
-    box-shadow: 0 0 18px rgba(255, 210, 69, 0.1);
   }
 
   .record-shine {
