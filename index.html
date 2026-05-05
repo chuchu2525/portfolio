@@ -3,130 +3,105 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Yuu Kun | Engineer Portfolio Mock</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Yuukun Portfolio Prototypes</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #111111;
+        --panel: #202020;
+        --line: #454652;
+        --text: #e8e4df;
+        --muted: #b9b5c5;
+        --yellow: #ffd245;
+        --denim: #1a237e;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 32px;
+        color: var(--text);
+        background:
+          repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 6px),
+          var(--bg);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(920px, 100%);
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(40px, 7vw, 76px);
+        line-height: 0.96;
+      }
+
+      p {
+        margin: 0 0 28px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      a {
+        display: grid;
+        min-height: 190px;
+        align-content: end;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 24px;
+        color: inherit;
+        text-decoration: none;
+        background:
+          linear-gradient(135deg, rgba(255, 210, 69, 0.12), transparent),
+          var(--panel);
+      }
+
+      a strong {
+        color: var(--yellow);
+        font-size: 24px;
+      }
+
+      a span {
+        display: block;
+        margin-top: 10px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      @media (max-width: 720px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
-    <header class="site-header" aria-label="Site navigation">
-      <a class="brand" href="#top">Yuu Kun</a>
-      <nav>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#atelier">Atelier</a>
-      </nav>
-    </header>
-
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <img class="hero-image" src="assets/hero-vintage-records.png" alt="Vintage clothes and vinyl records arranged in a shop">
-        <div class="hero-scrim"></div>
-        <div class="hero-content">
-          <p class="kicker">Engineer / Vintage Wear / Vinyl Records</p>
-          <h1 id="hero-title">コードを仕立て、体験を鳴らす。</h1>
-          <p class="hero-copy">
-            古着のディテールとレコードの回転感をモチーフにした、エンジニア向けポートフォリオのモック。
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#skills">スキルを見る</a>
-            <a class="button ghost" href="#experience">経験を編集</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="skills" class="section skills-section" aria-labelledby="skills-title">
-        <div class="section-heading">
-          <p class="kicker">Skill Map</p>
-          <h2 id="skills-title">5つの技術属性を、服のパーツとレコード溝に割り当てる。</h2>
-        </div>
-
-        <div class="skill-layout">
-          <div class="radar-panel">
-            <div class="record" aria-hidden="true">
-              <div class="record-label">
-                <span>portfolio</span>
-              </div>
-            </div>
-            <svg class="radar" viewBox="0 0 300 300" role="img" aria-label="Five-sided skill radar">
-              <polygon class="radar-grid outer" points="150,24 270,112 224,254 76,254 30,112"></polygon>
-              <polygon class="radar-grid middle" points="150,65 231,125 201,220 99,220 69,125"></polygon>
-              <polygon class="radar-grid inner" points="150,106 192,138 178,184 122,184 108,138"></polygon>
-              <polygon id="radar-shape" class="radar-shape" points=""></polygon>
-              <g class="radar-dots" id="radar-dots"></g>
-            </svg>
-          </div>
-
-          <div class="garment-panel" aria-label="Skill attributes">
-            <div class="jacket">
-              <button class="skill-pin pin-front active" data-skill="frontend">Front</button>
-              <button class="skill-pin pin-backend" data-skill="backend">Back</button>
-              <button class="skill-pin pin-db" data-skill="database">DB</button>
-              <button class="skill-pin pin-infra" data-skill="infra">Infra</button>
-              <button class="skill-pin pin-ci" data-skill="cicd">CI</button>
-              <div class="lapel left"></div>
-              <div class="lapel right"></div>
-              <div class="pocket left"></div>
-              <div class="pocket right"></div>
-            </div>
-            <article class="skill-detail" id="skill-detail"></article>
-          </div>
-        </div>
-      </section>
-
-      <section id="experience" class="section experience-section" aria-labelledby="experience-title">
-        <div class="section-heading compact">
-          <p class="kicker">Experience Editor</p>
-          <h2 id="experience-title">経験カードに属性を持たせ、後から足せる。</h2>
-        </div>
-
-        <div class="editor-shell">
-          <form class="experience-form" id="experience-form">
-            <label>
-              タイトル
-              <input id="exp-title" type="text" value="古着ECの検索体験改善">
-            </label>
-            <label>
-              説明
-              <textarea id="exp-desc" rows="4">商品属性、在庫、閲覧履歴を使って、絞り込みと推薦の体験を改善した想定プロジェクト。</textarea>
-            </label>
-            <fieldset>
-              <legend>属性</legend>
-              <div class="attribute-grid" id="attribute-inputs"></div>
-            </fieldset>
-            <button class="button primary wide" type="submit">経験を追加</button>
-          </form>
-
-          <div class="experience-board">
-            <div class="filter-bar" id="filter-bar" aria-label="Experience filters"></div>
-            <div class="experience-list" id="experience-list"></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="atelier" class="section atelier-section" aria-labelledby="atelier-title">
-        <div class="section-heading">
-          <p class="kicker">Interaction Notes</p>
-          <h2 id="atelier-title">ポートフォリオの見せ方としての方向性。</h2>
-        </div>
-        <div class="atelier-grid">
-          <article>
-            <span class="atelier-mark">01</span>
-            <h3>服のパーツでスキルを選ぶ</h3>
-            <p>襟、袖、ポケット、裾、ステッチに属性を対応させ、職能の説明に飛ぶ設計。</p>
-          </article>
-          <article>
-            <span class="atelier-mark">02</span>
-            <h3>レコード盤が経験の索引になる</h3>
-            <p>盤面の5角形レーダーをクリック導線にして、技術の厚みを視覚的に出す。</p>
-          </article>
-          <article>
-            <span class="atelier-mark">03</span>
-            <h3>経験はタグ編集前提</h3>
-            <p>プロジェクトごとの属性を編集できるようにし、後から職務経歴の粒度に育てる。</p>
-          </article>
-        </div>
-      </section>
+    <main>
+      <h1>Portfolio Prototypes</h1>
+      <p>古着とレコードをモチーフにしたエンジニアポートフォリオのモック置き場です。要件化の中心は v2 です。</p>
+      <div class="grid">
+        <a href="prototypes/v1/index.html">
+          <strong>v1</strong>
+          <span>最初のモック。生成背景とジャケット型スキルUI。</span>
+        </a>
+        <a href="prototypes/v2/index.html">
+          <strong>v2</strong>
+          <span>CRAFTSMAN.DEV 方向。デニム、レコード、Field Notes、Project Crate。</span>
+        </a>
+      </div>
     </main>
-
-    <script src="script.js"></script>
   </body>
 </html>
