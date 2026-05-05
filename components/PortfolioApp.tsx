@@ -235,6 +235,8 @@ export function PortfolioApp() {
               <div className="record-shine absolute inset-0 rounded-[inherit]" />
             </div>
             <div className="record-center-label pointer-events-none absolute z-[2] grid place-items-center rounded-full">
+              <span className="record-label-top">YUU&apos;s</span>
+              <span className="record-label-bottom">SKILL</span>
             </div>
             <div className="record-radar-surface pointer-events-none absolute inset-[10.5%] z-[3] grid place-items-center rounded-full">
               <HeroRadar />
