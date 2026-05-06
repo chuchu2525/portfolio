@@ -32,15 +32,21 @@ export type Project = {
   title: string;
   role: string;
   period: string;
+  category: "work" | "personal" | "learning";
   description: string;
+  problem: string;
+  approach: string;
+  result: string;
   attributes: Array<{
     id: SkillAttributeId;
     level: ExperienceLevel;
   }>;
   techTags: string[];
   featured?: boolean;
+  featuredOrder?: number;
   coverCode: string;
   highlights: string[];
+  learnings: string[];
 };
 
 export const skillAttributes: SkillAttribute[] = [
@@ -192,8 +198,15 @@ export const projects: Project[] = [
     title: "Analog E-Commerce",
     role: "Full-stack Engineer",
     period: "2025",
+    category: "work",
     description:
       "古着とヴィンテージオーディオを扱うEC体験。検索、商品属性、決済、在庫導線をひとつの触れるUIとして設計。",
+    problem:
+      "商品属性が複雑で、探しやすさと購入導線の両立が難しい状態を整理する必要があった。",
+    approach:
+      "商品分類、検索条件、決済までの流れを一続きの体験として見直し、UIとデータ構造の両方から設計した。",
+    result:
+      "商品を探す、比較する、購入する流れを明確にし、実装と改善を続けやすいEC基盤として整理した。",
     attributes: [
       { id: "requirements", level: "experienced" },
       { id: "frontend", level: "experienced" },
@@ -203,16 +216,25 @@ export const projects: Project[] = [
     ],
     techTags: ["Next.js", "TypeScript", "Stripe", "PostgreSQL"],
     featured: true,
+    featuredOrder: 1,
     coverCode: "Next.js / Stripe",
-    highlights: ["商品属性の整理", "検索体験の改善", "決済導線の設計"]
+    highlights: ["商品属性の整理", "検索体験の改善", "決済導線の設計"],
+    learnings: ["UIだけでなく、検索条件とデータ設計を一緒に整える重要性", "購入導線は画面遷移よりも迷いの少なさで評価すること"]
   },
   {
     id: "denimdb-migrator",
     title: "DenimDB Migrator",
     role: "Systems Architect",
     period: "2024",
+    category: "work",
     description:
       "商品、在庫、サイズ表記の移行を安全に行うためのデータ移行とロールバック設計。",
+    problem:
+      "サイズ表記や在庫履歴が複雑で、移行失敗時の戻し方や検証手順が曖昧になりやすかった。",
+    approach:
+      "移行処理を段階に分け、検証ログとロールバック手順を同時に設計して、失敗時に追跡できる状態を作った。",
+    result:
+      "移行作業の確認ポイントが明確になり、データ変更を安全に進めるための運用手順まで含めて整備した。",
     attributes: [
       { id: "architecture", level: "experienced" },
       { id: "backend", level: "experienced" },
@@ -221,16 +243,26 @@ export const projects: Project[] = [
       { id: "delivery", level: "learning" }
     ],
     techTags: ["Go", "PostgreSQL", "GitHub Actions"],
+    featured: true,
+    featuredOrder: 2,
     coverCode: "DB / CI",
-    highlights: ["移行手順の分割", "ロールバック生成", "検証ログの整備"]
+    highlights: ["移行手順の分割", "ロールバック生成", "検証ログの整備"],
+    learnings: ["データ移行は実装よりも検証可能性が重要になること", "ロールバック設計は後付けではなく移行設計と同時に考えること"]
   },
   {
     id: "telemetry-9",
     title: "Telemetry 9",
     role: "Platform Engineer",
     period: "2024",
+    category: "work",
     description:
       "分散サービスの状態、デプロイ履歴、障害兆候をレコード溝のような時系列で読める監視ダッシュボード。",
+    problem:
+      "障害兆候、デプロイ履歴、サービス状態が分散していて、運用時に状況判断へ時間がかかっていた。",
+    approach:
+      "時系列で状態変化を読めるダッシュボードに集約し、原因調査に必要な情報へ短い導線で到達できるようにした。",
+    result:
+      "運用時の確認順序が整理され、障害兆候の把握とデプロイ影響の確認を進めやすくした。",
     attributes: [
       { id: "frontend", level: "experienced" },
       { id: "performance", level: "experienced" },
@@ -239,16 +271,26 @@ export const projects: Project[] = [
       { id: "security", level: "learning" }
     ],
     techTags: ["React", "D3", "AWS", "Observability"],
+    featured: true,
+    featuredOrder: 3,
     coverCode: "D3 / Infra",
-    highlights: ["時系列UI", "障害兆候の可視化", "運用導線の短縮"]
+    highlights: ["時系列UI", "障害兆候の可視化", "運用導線の短縮"],
+    learnings: ["運用UIは情報量よりも確認順序の設計が効くこと", "監視データは見せ方次第でチームの判断速度を変えられること"]
   },
   {
     id: "care-label-auth",
     title: "Care Label Auth",
     role: "Backend Engineer",
     period: "2023",
+    category: "work",
     description:
       "権限、入力検証、監査ログをケアラベルのように明文化し、管理画面の認証認可を整理した経験。",
+    problem:
+      "管理画面の権限や入力検証のルールが散らばり、仕様確認と実装判断に時間がかかっていた。",
+    approach:
+      "権限表、入力検証、監査ログをひとまとまりの仕様として整理し、実装時に参照しやすい形へ落とし込んだ。",
+    result:
+      "認証認可まわりの判断基準が明確になり、レビューや保守で確認すべきポイントを揃えやすくした。",
     attributes: [
       { id: "requirements", level: "learning" },
       { id: "backend", level: "experienced" },
@@ -258,11 +300,17 @@ export const projects: Project[] = [
     ],
     techTags: ["Auth", "API", "Audit Log"],
     coverCode: "Auth / API",
-    highlights: ["権限表の整理", "入力検証", "監査ログ"]
+    highlights: ["権限表の整理", "入力検証", "監査ログ"],
+    learnings: ["セキュリティ要件はコードだけでなく仕様として読める状態が必要なこと", "監査ログは後から足すより業務フローと一緒に設計すること"]
   }
 ];
 
 export const maxRadarScore = 3;
+export const featuredProjects = projects
+  .filter((project) => project.featured)
+  .slice()
+  .sort((a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99))
+  .slice(0, 3);
 
 export function scoreContribution(level: ExperienceLevel) {
   return level === "experienced" ? 1 : 0.5;
@@ -289,4 +337,8 @@ export function getContributingProjects(id: SkillAttributeId) {
   return projects.filter((project) =>
     project.attributes.some((attribute) => attribute.id === id)
   );
+}
+
+export function getProjectById(id: string) {
+  return projects.find((project) => project.id === id);
 }

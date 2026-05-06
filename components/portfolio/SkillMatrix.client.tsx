@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   getAttributeById,
@@ -103,8 +104,8 @@ export function SkillMatrix() {
           <span className={sectionEyebrowClass}>FIELD NOTES</span>
           <h2 className={h2Class}>Field Notes</h2>
           <p className={paragraphClass}>
-            スコアは経験データから集計します。経験ありは1.0、キャッチアップ中は0.5として扱い、
-            最大値は設定で変更できるようにしています。
+            レーダーは評価表ではなく、経験の根拠へ入るための入口です。
+            属性を選ぶと、その領域の意味と関連する実績を確認できます。
           </p>
         </div>
         <div className="denim-texture relative min-h-[300px] border-2 border-dashed border-[rgba(189,194,255,0.34)] p-[clamp(26px,4vw,42px)] shadow-[0_18px_34px_rgba(0,0,0,0.34)] before:pointer-events-none before:absolute before:inset-4 before:border before:border-[rgba(189,194,255,0.22)]">
@@ -126,9 +127,17 @@ export function SkillMatrix() {
               </div>
             ))}
           </div>
-          <div className="relative z-[1] mt-7 flex flex-wrap gap-2">
+          <div className="relative z-[1] mt-7 grid gap-3">
+            <span className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--yellow)]">Evidence</span>
             {activeProjects.map((project) => (
-              <span className="inline-flex min-h-7 items-center rounded border border-[var(--line)] bg-[var(--panel-hi)] px-2 text-[11px]" key={project.id}>{project.title}</span>
+              <Link
+                className="grid gap-1 rounded border border-[var(--line)] bg-[var(--panel-hi)] px-3 py-2 text-sm text-[var(--text)] hover:border-[var(--yellow)] focus-visible:border-[var(--yellow)]"
+                href={`/projects/${project.id}`}
+                key={project.id}
+              >
+                <span className="font-bold">{project.title}</span>
+                <span className="text-xs leading-5 text-[var(--muted)]">{project.problem}</span>
+              </Link>
             ))}
           </div>
         </div>
@@ -140,8 +149,8 @@ export function SkillMatrix() {
             {[
               ["Material", "Experience Data"],
               ["Fit", "Static Export"],
-              ["Maintenance", "Update Data First"],
-              ["Warning", "Do Not Fake Scores"]
+              ["Maintenance", "Evidence First"],
+              ["Warning", "Scores Are Not The Story"]
             ].map(([term, detail]) => (
               <div className="flex justify-between gap-3.5 border-t border-[rgba(37,35,33,0.18)] py-3" key={term}>
                 <dt className="m-0 text-[13px] font-bold uppercase tracking-[0.12em]">{term}</dt>

@@ -1,10 +1,9 @@
 import { AboutSection } from "./portfolio/AboutSection";
 import { ContactSection } from "./portfolio/ContactSection";
+import { FeaturedProjectsSection } from "./portfolio/FeaturedProjectsSection";
 import { Footer } from "./portfolio/Footer";
 import { Header } from "./portfolio/Header";
 import { HeroSection } from "./portfolio/HeroSection";
-import { ProjectArchive } from "./portfolio/ProjectArchive.client";
-import { RecentPatchesSection } from "./portfolio/RecentPatchesSection";
 import { SkillMatrix } from "./portfolio/SkillMatrix.client";
 
 export function PortfolioApp() {
@@ -13,9 +12,8 @@ export function PortfolioApp() {
       <Header />
       <main id="top">
         <HeroSection />
-        <RecentPatchesSection />
         <SkillMatrix />
-        <ProjectArchive />
+        <FeaturedProjectsSection />
         <AboutSection />
         <ContactSection />
       </main>

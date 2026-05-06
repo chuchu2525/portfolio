@@ -14,8 +14,8 @@ export function HeroSection() {
           古着とレコードの質感を、情報構造と技術領域の見せ方に接続します。
         </p>
         <div className="mt-8 flex flex-wrap gap-3.5">
-          <ButtonLink href="#archive" tone="yellow">View Projects</ButtonLink>
-          <ButtonLink href="#matrix" tone="dark">Skill Matrix</ButtonLink>
+          <ButtonLink href="#matrix" tone="yellow">Skill Matrix</ButtonLink>
+          <ButtonLink href="#projects" tone="dark">View Projects</ButtonLink>
         </div>
       </div>
 
