@@ -1,22 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { projects, skillAttributes, type SkillAttributeId } from "@/lib/portfolio-data";
+import { getProjectsBySkillAttribute, skillAttributes, type ProjectFilterId } from "@/lib/portfolio-data";
 import { ProjectCard } from "./ProjectCard";
 import { ChipButton } from "./shared";
 import { cn, h2Class, paragraphClass, sectionClass, sectionEyebrowClass, sectionHeadClass } from "./styles";
 
 export function ProjectArchive() {
-  const [activeFilter, setActiveFilter] = useState<SkillAttributeId | "all">("all");
-  const filteredProjects = useMemo(() => {
-    if (activeFilter === "all") {
-      return projects;
-    }
-
-    return projects.filter((project) =>
-      project.attributes.some((attribute) => attribute.id === activeFilter)
-    );
-  }, [activeFilter]);
+  const [activeFilter, setActiveFilter] = useState<ProjectFilterId>("all");
+  const filteredProjects = useMemo(() => getProjectsBySkillAttribute(activeFilter), [activeFilter]);
 
   return (
     <section id="archive" className={cn(sectionClass, "border-y border-[#252525] bg-[#101010]")}>

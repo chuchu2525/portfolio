@@ -2,31 +2,30 @@
 
 import { useState } from "react";
 import { getSkillScore, maxRadarScore, skillAttributes } from "@/lib/portfolio-data";
-import { getHeroAxisStyle, getPoint, heroRadarRadius, pointsToString, radarCenter } from "./radar";
+import { buildRadarGeometry, getHeroAxisStyle, heroRadarRadius, radarCenter } from "./radar";
+
+const heroRadarGeometry = buildRadarGeometry({
+  items: skillAttributes,
+  getScore: (attribute) => getSkillScore(attribute.id),
+  maxScore: maxRadarScore,
+  pointRadius: heroRadarRadius
+});
 
 function HeroRadar() {
-  const total = skillAttributes.length;
-  const points = skillAttributes.map((attribute, index) => {
-    const ratio = Math.min(getSkillScore(attribute.id) / maxRadarScore, 1);
-    return getPoint(index, total, ratio, heroRadarRadius);
-  });
-  const outerPoints = skillAttributes.map((_, index) => getPoint(index, total, 1, heroRadarRadius));
-
   return (
     <svg className="hero-radar" viewBox="0 0 320 320" aria-hidden="true">
-      {[0.25, 0.5, 0.75, 1].map((ratio) => (
+      {heroRadarGeometry.rings.map((ring) => (
         <polygon
           className="hero-radar-ring"
-          key={ratio}
-          points={pointsToString(skillAttributes.map((_, index) => getPoint(index, total, ratio, heroRadarRadius)))}
+          key={ring.ratio}
+          points={ring.pointsString}
         />
       ))}
-      <polygon className="radar-paper" points={pointsToString(outerPoints)} />
-      <polygon className="radar-fill" points={pointsToString(points)} />
-      {skillAttributes.map((_, index) => {
-        const point = outerPoints[index];
-        return <line key={index} x1={radarCenter} y1={radarCenter} x2={point.x} y2={point.y} />;
-      })}
+      <polygon className="radar-paper" points={heroRadarGeometry.outerPointsString} />
+      <polygon className="radar-fill" points={heroRadarGeometry.scorePointsString} />
+      {heroRadarGeometry.axes.map(({ item, point }) => (
+        <line key={item.id} x1={radarCenter} y1={radarCenter} x2={point.x} y2={point.y} />
+      ))}
     </svg>
   );
 }

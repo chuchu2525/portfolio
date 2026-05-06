@@ -312,19 +312,57 @@ export const featuredProjects = projects
   .sort((a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99))
   .slice(0, 3);
 
+export type ProjectFilterId = SkillAttributeId | "all";
+
 export function scoreContribution(level: ExperienceLevel) {
   return level === "experienced" ? 1 : 0.5;
 }
 
+export const attributeById = new Map<SkillAttributeId, SkillAttribute>(
+  skillAttributes.map((attribute) => [attribute.id, attribute])
+);
+
+export const projectById = new Map<string, Project>(
+  projects.map((project) => [project.id, project])
+);
+
+function buildSkillScoreById() {
+  const scores = new Map<SkillAttributeId, number>(
+    skillAttributeIds.map((id) => [id, 0] as const)
+  );
+
+  for (const project of projects) {
+    for (const attribute of project.attributes) {
+      scores.set(attribute.id, (scores.get(attribute.id) ?? 0) + scoreContribution(attribute.level));
+    }
+  }
+
+  return scores;
+}
+
+function buildProjectsBySkillAttributeId() {
+  const index = new Map<SkillAttributeId, Project[]>(
+    skillAttributeIds.map((id) => [id, [] as Project[]] as const)
+  );
+
+  for (const project of projects) {
+    for (const attribute of project.attributes) {
+      index.get(attribute.id)?.push(project);
+    }
+  }
+
+  return index;
+}
+
+export const skillScoreById = buildSkillScoreById();
+export const projectsBySkillAttributeId = buildProjectsBySkillAttributeId();
+
 export function getSkillScore(id: SkillAttributeId) {
-  return projects.reduce((total, project) => {
-    const found = project.attributes.find((attribute) => attribute.id === id);
-    return found ? total + scoreContribution(found.level) : total;
-  }, 0);
+  return skillScoreById.get(id) ?? 0;
 }
 
 export function getAttributeById(id: SkillAttributeId) {
-  const attribute = skillAttributes.find((item) => item.id === id);
+  const attribute = attributeById.get(id);
 
   if (!attribute) {
     throw new Error(`Unknown skill attribute: ${id}`);
@@ -334,11 +372,13 @@ export function getAttributeById(id: SkillAttributeId) {
 }
 
 export function getContributingProjects(id: SkillAttributeId) {
-  return projects.filter((project) =>
-    project.attributes.some((attribute) => attribute.id === id)
-  );
+  return projectsBySkillAttributeId.get(id) ?? [];
+}
+
+export function getProjectsBySkillAttribute(id: ProjectFilterId) {
+  return id === "all" ? projects : getContributingProjects(id);
 }
 
 export function getProjectById(id: string) {
-  return projects.find((project) => project.id === id);
+  return projectById.get(id);
 }

@@ -10,9 +10,15 @@ import {
   skillAttributes,
   type SkillAttributeId
 } from "@/lib/portfolio-data";
-import { getPoint, pointsToString, radarCenter } from "./radar";
+import { buildRadarGeometry, radarCenter } from "./radar";
 import { ChipButton } from "./shared";
 import { cn, h2Class, paragraphClass, sectionClass, sectionEyebrowClass, sectionHeadClass } from "./styles";
+
+const matrixRadarGeometry = buildRadarGeometry({
+  items: skillAttributes,
+  getScore: (attribute) => getSkillScore(attribute.id),
+  maxScore: maxRadarScore
+});
 
 function RadarChart({
   activeId,
@@ -21,30 +27,20 @@ function RadarChart({
   activeId: SkillAttributeId;
   onSelect: (id: SkillAttributeId) => void;
 }) {
-  const total = skillAttributes.length;
-  const outerPoints = skillAttributes.map((_, index) => getPoint(index, total));
-  const scorePoints = skillAttributes.map((attribute, index) => {
-    const ratio = Math.min(getSkillScore(attribute.id) / maxRadarScore, 1);
-    return getPoint(index, total, ratio);
-  });
-
   return (
     <svg className="matrix-radar" viewBox="0 0 320 320" role="img" aria-label="Skill radar">
-      {[0.25, 0.5, 0.75, 1].map((ratio) => (
+      {matrixRadarGeometry.rings.map((ring) => (
         <polygon
-          key={ratio}
+          key={ring.ratio}
           className="radar-ring"
-          points={pointsToString(skillAttributes.map((_, index) => getPoint(index, total, ratio)))}
+          points={ring.pointsString}
         />
       ))}
-      {outerPoints.map((point, index) => (
-        <line key={skillAttributes[index].id} x1={radarCenter} y1={radarCenter} x2={point.x} y2={point.y} />
+      {matrixRadarGeometry.axes.map(({ item, point }) => (
+        <line key={item.id} x1={radarCenter} y1={radarCenter} x2={point.x} y2={point.y} />
       ))}
-      <polygon className="skill-polygon" points={pointsToString(scorePoints)} />
-      {scorePoints.map((point, index) => {
-        const attribute = skillAttributes[index];
-        const outerPoint = getPoint(index, total, 1.14);
-
+      <polygon className="skill-polygon" points={matrixRadarGeometry.scorePointsString} />
+      {matrixRadarGeometry.scorePoints.map(({ item: attribute, point, labelPoint }) => {
         return (
           <g
             className="svg-button"
@@ -66,7 +62,7 @@ function RadarChart({
               cy={point.y}
               r="6"
             />
-            <text x={outerPoint.x} y={outerPoint.y} textAnchor="middle" dominantBaseline="middle">
+            <text x={labelPoint.x} y={labelPoint.y} textAnchor="middle" dominantBaseline="middle">
               {attribute.label}
             </text>
           </g>
