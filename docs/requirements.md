@@ -510,6 +510,7 @@ type Project = {
 - テスト方針と品質基準は `docs/test-design.md` を参照する
 - アクセシビリティは、まず品質目標として `WCAG 2.2 AA 相当` を目指す。ただし正式な適合宣言ではなく、自動テストと手動確認を組み合わせて主要な問題を防ぐ
 - ブラウザ確認は Chrome / Safari / Firefox、代表画面幅は mobile 390px / tablet 768px / desktop 1440px を標準にする
+- 脆弱性診断は OWASP ZAP の Baseline Scan を基本とし、静的サイトに対する受動的な診断をCIまたはリリース前チェックに組み込む
 
 ## コピー方針
 

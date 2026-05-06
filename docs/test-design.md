@@ -14,6 +14,7 @@
 - モバイル、タブレット、デスクトップで文章やUIが破綻しない
 - キーボード操作、スクリーンリーダー向けの意味付け、コントラスト、フォーカス表示が大きく崩れない
 - 静的サイトとしてビルドでき、Lighthouseで重大な問題を出さない
+- 公開前に基本的なセキュリティヘッダーや既知のWeb設定不備を検出できる
 
 ## 2. 品質基準の考え方
 
@@ -50,6 +51,7 @@ Next.js の公式ドキュメントでは、Unit、Component、Integration、E2E
 | コンポーネントテスト | ユーザー視点で表示とUI状態を確認する | `PortfolioApp` と `components/portfolio/*` の主要UI | Testing Library | 開発中、PR、CI |
 | E2Eテスト | 実ブラウザで主要導線を確認する | トップページ全体 | Playwright | PR、CI、リリース前 |
 | アクセシビリティ確認 | 自動検出 + キーボード手動確認で主要問題を防ぐ | 全ページ、主要UI | axe, Playwright, 手動 | PR、リリース前 |
+| 脆弱性診断 | 公開サイトとしての基本的な設定不備を検出する | ローカルpreviewまたは公開URL | OWASP ZAP Baseline Scan | リリース前、定期実行 |
 | ビジュアル確認 | レイアウト崩れ、テキストはみ出し、装飾過多を確認する | 390/768/1440px | Playwright screenshot | リリース前、UI変更時 |
 | パフォーマンス確認 | 静的サイトとして重くなりすぎないことを確認する | Home | Lighthouse CI | リリース前、CI |
 | ビルド確認 | 静的エクスポート可能性を保証する | Next.js build | `npm run build` | PR、CI |
@@ -98,6 +100,20 @@ E2E は Playwright を採用します。Playwright はアクセシブルロー�
 
 Lighthouse CI は、Lighthouse の結果をCIに組み込み、パフォーマンスやアクセシビリティの退行を見つけるために使います。最初から厳しい失敗条件にすると開発が止まりやすいため、初期は警告中心、デザインとアセットが固まった段階でしきい値を厳しくします。
 
+### 4.6 OWASP ZAP
+
+脆弱性診断には OWASP ZAP を使います。まずは Baseline Scan を基本にします。ZAP の Baseline Scan は指定URLを短時間 spider し、受動的スキャンの完了を待って結果を報告する方式です。公式ドキュメントでも、実際の攻撃は行わず短時間で終わるため、CI/CDや本番サイトに対しても使いやすい用途として説明されています。
+
+このサイトは静的ポートフォリオで、ログイン、フォーム投稿、API更新処理を持たない前提です。そのため、初期段階で Full Scan をCIに入れる必要性は低いです。Full Scan は active scan を含み、実際の攻撃的なリクエストを送るため、対象がステージング環境に限定できる場合や、問い合わせフォーム/APIなどの動的機能を追加した後にリリース前の手動診断として使います。
+
+推奨:
+
+- 初期導入: ZAP Baseline Scan
+- 実行対象: ローカルpreview、Vercel preview、または公開URL
+- CIでの扱い: 初期は report / warning 中心
+- 失敗条件: High 相当や明確な設定不備を確認してから段階的に `FAIL` 化
+- 設定: `.zap/rules.tsv` でルールごとに `INFO` / `WARN` / `FAIL` / `IGNORE` を管理する
+
 ## 5. テスト対象と優先度
 
 ### 5.1 優先度 P0
@@ -127,6 +143,7 @@ P1 は、品質や信頼性に強く効く項目です。
 | アニメーション抑制 | `prefers-reduced-motion` で回転が抑制される | E2E / 手動 |
 | アクセシブル名 | ボタン、リンク、SVGに意味のある名前がある | コンポーネント / axe |
 | Lighthouse | Performance / Accessibility / Best Practices / SEO が大きく悪化しない | Lighthouse CI |
+| ZAP Baseline | 受動的スキャンで重大なセキュリティ設定不備が出ない | OWASP ZAP |
 
 ### 5.3 優先度 P2
 
@@ -139,6 +156,7 @@ P2 は、将来の拡張時に効く項目です。
 | 詳細ページ追加時 | 動的ルート、OGP、パンくず、戻り導線 | E2E |
 | 外部リンク | `target="_blank"` に `rel="noreferrer"` がある | 静的解析 / コンポーネント |
 | 画像 | 重要画像に代替テキストまたは装飾扱いの意図がある | axe / 手動 |
+| ZAP設定 | `.zap/rules.tsv` で既知の許容事項と失敗条件を管理する | OWASP ZAP |
 
 ## 6. ユニットテスト設計
 
@@ -340,9 +358,66 @@ axe で検出する項目:
 - Lighthouse Performance: 80未満で警告、70未満で失敗候補
 - Accessibility: 90未満で失敗候補
 
-## 12. CI設計
+## 12. 脆弱性診断設計
 
-### 12.1 Pull Request
+### 12.1 基本方針
+
+OWASP ZAP Baseline Scan を使い、静的サイトとしての基本的なセキュリティ設定不備を検出します。対象はローカルの preview サーバー、Vercel preview URL、または公開URLです。
+
+この診断は、SASTや依存関係スキャンの代替ではありません。ZAP は実際にWebサイトへアクセスしてHTTPレスポンス、ヘッダー、Cookie、HTML、クライアントサイドの構造を見ます。依存パッケージの既知脆弱性は `npm audit` や Dependabot、CodeQL などで別途扱うのが適切です。
+
+### 12.2 Baseline Scan で見るもの
+
+主な検出対象:
+
+- セキュリティ関連HTTPヘッダーの不足
+- Cookie属性の不足
+- キャッシュ制御ヘッダーの不足
+- クリックジャッキング対策ヘッダーの不足
+- Content-Type 関連の設定不備
+- 既知の危険なレスポンスパターン
+
+このサイトは現時点でCookieや認証を持たないため、Cookie系の警告は環境によっては対象外または許容扱いになります。一方で、静的サイトでもセキュリティヘッダーやキャッシュ制御は公開品質に関わるため確認対象にします。
+
+### 12.3 Full Scan の扱い
+
+Full Scan は active scan を含み、対象に攻撃的なリクエストを送ります。初期の静的ポートフォリオではCIの常時実行に入れません。
+
+Full Scan を検討する条件:
+
+- 問い合わせフォームを追加した
+- API Route や Server Actions を追加した
+- 認証・認可を追加した
+- 外部サービス連携の入力値をサイト側で受けるようになった
+- ステージング環境を本番と分けて用意できる
+
+### 12.4 テストケース
+
+| ID | 対象 | 操作 | 期待結果 |
+| --- | --- | --- | --- |
+| SEC-001 | ZAP Baseline | preview URL に対して実行 | スキャンが完了し、HTMLまたはMarkdownレポートが生成される |
+| SEC-002 | セキュリティヘッダー | ZAP結果を確認 | High相当または明確な設定不備がない |
+| SEC-003 | 許容警告管理 | `.zap/rules.tsv` を確認 | 無視するルールには理由をコメントまたはPR説明で残す |
+| SEC-004 | 外部リンク | ZAP結果とE2Eを確認 | 外部リンクまわりの明確な危険設定がない |
+| SEC-005 | 公開前確認 | Vercel preview または公開URLで実行 | ローカルと公開環境の差分による警告を確認する |
+
+### 12.5 失敗条件
+
+初期:
+
+- ZAP実行自体の失敗は失敗扱い
+- High相当、または明確に修正可能な設定不備は修正対象
+- Medium / Low / Informational は内容を確認し、必要に応じて `.zap/rules.tsv` で管理
+
+運用が安定した後:
+
+- 修正すべきルールを `FAIL` にする
+- 許容するルールを `IGNORE` または `INFO` に落とす
+- レポートをCI artifactとして保存する
+
+## 13. CI設計
+
+### 13.1 Pull Request
 
 PRで最低限実行するもの:
 
@@ -359,7 +434,13 @@ npm run test
 npm run test:e2e
 ```
 
-### 12.2 Release前
+脆弱性診断を導入した後に追加するもの:
+
+```bash
+npm run security:zap
+```
+
+### 13.2 Release前
 
 リリース前に実行するもの:
 
@@ -368,11 +449,12 @@ npm run test:e2e
 - ユニット / コンポーネントテスト
 - Playwright E2E
 - axe
+- OWASP ZAP Baseline Scan
 - Lighthouse CI
 - 390px / 768px / 1440px のスクリーンショット確認
 - Safari 手動確認
 
-## 13. テストデータ設計
+## 14. テストデータ設計
 
 現在は `lib/portfolio-data.ts` が単一のデータソースです。テストでは本番データそのものを検査するテストと、関数に小さなfixtureを渡すテストを分けます。
 
@@ -391,7 +473,7 @@ fixture検査:
 - 属性が存在しない場合のエラー
 - 対象属性を持たないプロジェクトが除外されること
 
-## 14. リスクと対策
+## 15. リスクと対策
 
 | リスク | 影響 | 対策 |
 | --- | --- | --- |
@@ -401,8 +483,10 @@ fixture検査:
 | スコアが経験データ由来 | データ追加時に集計が壊れる | データ整合性テストと集計ユニットテストを入れる |
 | 正式な実績データに差し替える予定 | コピーやリンクが壊れやすい | データ必須項目のテストを入れる |
 | アクセシビリティ自動テストの限界 | 合格しても使いづらい可能性 | キーボード、VoiceOver、視認性の手動確認を残す |
+| ZAPの警告を全部CI失敗にすると運用が重い | 軽微な警告で開発が止まる | 初期はレポート中心にし、修正対象だけ段階的にFAIL化する |
+| Full Scanを本番に向けて実行する | 意図しない負荷や攻撃的リクエストが発生する | Full Scanはステージング限定、Baselineを通常運用にする |
 
-## 15. 実装時の推奨ファイル構成
+## 16. 実装時の推奨ファイル構成
 
 テスト実装に進む場合の候補です。
 
@@ -425,11 +509,13 @@ vitest.config.ts
 vitest.setup.ts
 eslint.config.mjs
 lighthouserc.js
+.zap/
+  rules.tsv
 ```
 
 既存コードに合わせるなら、ユニットテストは対象ファイル横の `*.test.ts` に置いてもよいです。小規模な間は `__tests__/` に集約した方が全体像を把握しやすいです。
 
-## 16. 受け入れ条件
+## 17. 受け入れ条件
 
 初期テスト導入時の受け入れ条件:
 
@@ -439,10 +525,11 @@ lighthouserc.js
 - `PortfolioApp` の初期表示と主要インタラクションのコンポーネントテストが成功する
 - Playwrightで Home / Skill Matrix / Projects の主要導線が成功する
 - axe の重大違反が0件
+- OWASP ZAP Baseline Scan が完了し、High相当または明確な設定不備が残っていない
 - 390px / 768px / 1440px で主要テキストのはみ出しがない
 - Lighthouse の Accessibility が90以上
 
-## 17. 参考資料
+## 18. 参考資料
 
 - Next.js Testing: https://nextjs.org/docs/app/guides/testing
 - Next.js ESLint: https://nextjs.org/docs/app/api-reference/config/eslint
@@ -452,3 +539,7 @@ lighthouserc.js
 - WCAG 2.2: https://www.w3.org/TR/wcag/
 - W3C WCAG Overview: https://www.w3.org/WAI/standards-guidelines/wcag/
 - Lighthouse CI: https://web.dev/articles/lighthouse-ci
+- OWASP ZAP Docker Documentation: https://www.zaproxy.org/docs/docker/
+- OWASP ZAP Baseline Scan: https://www.zaproxy.org/docs/docker/baseline-scan/
+- OWASP ZAP Full Scan: https://www.zaproxy.org/docs/docker/full-scan/
+- ZAP Baseline Scan GitHub Action: https://github.com/marketplace/actions/zap-baseline-scan
