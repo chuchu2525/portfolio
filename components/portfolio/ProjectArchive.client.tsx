@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { getProjectsBySkillAttribute, skillAttributes, type ProjectFilterId } from "@/lib/portfolio-data";
 import { ProjectCard } from "./ProjectCard";
 import { ChipButton } from "./shared";
@@ -8,7 +8,7 @@ import { cn, h2Class, paragraphClass, sectionClass, sectionEyebrowClass, section
 
 export function ProjectArchive() {
   const [activeFilter, setActiveFilter] = useState<ProjectFilterId>("all");
-  const filteredProjects = useMemo(() => getProjectsBySkillAttribute(activeFilter), [activeFilter]);
+  const filteredProjects = getProjectsBySkillAttribute(activeFilter);
 
   return (
     <section id="archive" className={cn(sectionClass, "border-y border-[#252525] bg-[#101010]")}>

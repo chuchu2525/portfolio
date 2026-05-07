@@ -201,7 +201,7 @@ button {
     max-width: 410px;
     display: block;
     margin: 0 auto 24px;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .matrix-radar .radar-ring {

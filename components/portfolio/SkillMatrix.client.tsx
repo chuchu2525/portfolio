@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   getAttributeById,
   getContributingProjects,
@@ -28,7 +28,7 @@ function RadarChart({
   onSelect: (id: SkillAttributeId) => void;
 }) {
   return (
-    <svg className="matrix-radar" viewBox="0 0 320 320" role="img" aria-label="Skill radar">
+    <svg className="matrix-radar" viewBox="0 0 320 320" aria-label="Skill radar">
       {matrixRadarGeometry.rings.map((ring) => (
         <polygon
           key={ring.ratio}
@@ -76,7 +76,7 @@ export function SkillMatrix() {
   const [activeSkillId, setActiveSkillId] = useState<SkillAttributeId>("frontend");
 
   const activeSkill = getAttributeById(activeSkillId);
-  const activeProjects = useMemo(() => getContributingProjects(activeSkillId), [activeSkillId]);
+  const activeProjects = getContributingProjects(activeSkillId);
 
   return (
     <section id="matrix" className={cn(sectionClass, "mx-auto grid max-w-[1280px] grid-cols-1 gap-[clamp(28px,5vw,64px)] lg:grid-cols-[minmax(300px,480px)_minmax(0,1fr)]")}>
