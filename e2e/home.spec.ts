@@ -16,6 +16,7 @@ test.describe("home page", () => {
   });
 
   test("toggles the hero record radar", async ({ page }) => {
+    test.skip(test.info().project.name === "mobile-chrome", "mobile uses long press preview instead of click toggle");
     await page.goto("/");
 
     const turntable = page.getByRole("button", { name: "スキルレーダーを表示" });
@@ -24,6 +25,41 @@ test.describe("home page", () => {
     await turntable.click();
 
     await expect(turntable).toHaveAttribute("aria-pressed", "true");
+    await expect(turntable).toHaveAttribute("data-radar-open", "true");
+  });
+
+  test("shows the hero radar only while long pressing on mobile", async ({ page }) => {
+    test.skip(test.info().project.name !== "mobile-chrome", "desktop keeps click toggle behavior");
+    await page.goto("/");
+
+    const turntable = page.getByRole("button", { name: "スキルレーダーを表示" });
+    await expect(turntable).toHaveAttribute("aria-pressed", "false");
+    await expect(turntable).toHaveAttribute("data-radar-open", "false");
+
+    await turntable.dispatchEvent("pointerdown", {
+      pointerId: 1,
+      pointerType: "touch",
+      clientX: 160,
+      clientY: 160,
+      isPrimary: true,
+      bubbles: true
+    });
+    await page.waitForTimeout(320);
+
+    await expect(turntable).toHaveAttribute("aria-pressed", "false");
+    await expect(turntable).toHaveAttribute("data-radar-open", "true");
+
+    await turntable.dispatchEvent("pointerup", {
+      pointerId: 1,
+      pointerType: "touch",
+      clientX: 160,
+      clientY: 160,
+      isPrimary: true,
+      bubbles: true
+    });
+    await page.waitForTimeout(50);
+
+    await expect(turntable).toHaveAttribute("data-radar-open", "false");
   });
 
   test("switches skill matrix notes", async ({ page }) => {

@@ -79,6 +79,11 @@ button {
     transition: filter 220ms ease, opacity 220ms ease;
   }
 
+  .hero-turntable {
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
   .hero-turntable:hover .record-grooves,
   .hero-turntable:focus-visible .record-grooves,
   .hero-turntable[data-radar-open="true"] .record-grooves {

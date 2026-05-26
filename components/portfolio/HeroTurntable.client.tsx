@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getSkillScore, maxRadarScore, skillAttributes } from "@/lib/portfolio-data";
 import { buildRadarGeometry, getHeroAxisStyle, heroRadarRadius, radarCenter } from "./radar";
+
+const longPressDelayMs = 280;
+const longPressMoveTolerancePx = 14;
 
 const heroRadarGeometry = buildRadarGeometry({
   items: skillAttributes,
@@ -31,16 +34,111 @@ function HeroRadar() {
 }
 
 export function HeroTurntable() {
-  const [isHeroRadarOpen, setIsHeroRadarOpen] = useState(false);
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
+  const [isHeroRadarLatchedOpen, setIsHeroRadarLatchedOpen] = useState(false);
+  const [isHeroRadarPreviewOpen, setIsHeroRadarPreviewOpen] = useState(false);
+  const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const activePointerIdRef = useRef<number | null>(null);
+  const pointerStartRef = useRef<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+      return;
+    }
+
+    const query = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const syncPointerMode = () => setIsCoarsePointer(query.matches);
+
+    syncPointerMode();
+    query.addEventListener("change", syncPointerMode);
+
+    return () => query.removeEventListener("change", syncPointerMode);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (holdTimerRef.current) {
+        clearTimeout(holdTimerRef.current);
+      }
+    };
+  }, []);
+
+  const clearHoldTimer = () => {
+    if (!holdTimerRef.current) {
+      return;
+    }
+
+    clearTimeout(holdTimerRef.current);
+    holdTimerRef.current = null;
+  };
+
+  const resetTouchPreview = () => {
+    clearHoldTimer();
+    activePointerIdRef.current = null;
+    pointerStartRef.current = null;
+    setIsHeroRadarPreviewOpen(false);
+  };
+
+  const isHeroRadarOpen = isHeroRadarLatchedOpen || isHeroRadarPreviewOpen;
 
   return (
     <button
       className="hero-turntable relative aspect-square w-[min(100%,420px)] cursor-pointer justify-self-center rounded-xl border-[5px] border-[#343434] bg-[#111] shadow-[0_28px_60px_rgba(0,0,0,0.55),inset_0_2px_8px_rgba(255,255,255,0.07)] outline-none focus-visible:ring-4 focus-visible:ring-[rgba(255,210,69,0.55)] md:w-[min(100%,340px)] lg:w-[min(100%,520px)]"
       type="button"
       aria-label="スキルレーダーを表示"
-      aria-pressed={isHeroRadarOpen}
+      aria-pressed={isHeroRadarLatchedOpen}
       data-radar-open={isHeroRadarOpen}
-      onClick={() => setIsHeroRadarOpen((current) => !current)}
+      onClick={(event) => {
+        if (isCoarsePointer) {
+          event.preventDefault();
+          return;
+        }
+
+        setIsHeroRadarLatchedOpen((current) => !current);
+      }}
+      onPointerDown={(event) => {
+        if (!isCoarsePointer || (event.pointerType !== "touch" && event.pointerType !== "pen")) {
+          return;
+        }
+
+        resetTouchPreview();
+        activePointerIdRef.current = event.pointerId;
+        pointerStartRef.current = { x: event.clientX, y: event.clientY };
+        holdTimerRef.current = setTimeout(() => {
+          setIsHeroRadarPreviewOpen(true);
+        }, longPressDelayMs);
+      }}
+      onPointerMove={(event) => {
+        if (activePointerIdRef.current !== event.pointerId || !pointerStartRef.current) {
+          return;
+        }
+
+        const deltaX = event.clientX - pointerStartRef.current.x;
+        const deltaY = event.clientY - pointerStartRef.current.y;
+
+        if (Math.hypot(deltaX, deltaY) > longPressMoveTolerancePx) {
+          resetTouchPreview();
+        }
+      }}
+      onPointerUp={(event) => {
+        if (activePointerIdRef.current !== event.pointerId) {
+          return;
+        }
+
+        resetTouchPreview();
+      }}
+      onPointerCancel={(event) => {
+        if (activePointerIdRef.current !== event.pointerId) {
+          return;
+        }
+
+        resetTouchPreview();
+      }}
+      onContextMenu={(event) => {
+        if (isCoarsePointer) {
+          event.preventDefault();
+        }
+      }}
     >
       <div className="absolute inset-[8%] rounded-full bg-[#0a0a0a]" />
       <div className="record-grooves motion-safe-spin absolute inset-[9%] z-[1] rounded-full shadow-[0_18px_34px_rgba(0,0,0,0.7)]">
@@ -62,7 +160,7 @@ export function HeroTurntable() {
         ))}
       </div>
       <div className="hero-axis-caption absolute right-[7%] bottom-[7%] z-[6] flex gap-2.5 whitespace-nowrap text-[10px] font-extrabold tracking-[0.12em] text-[var(--muted)]" aria-hidden="true">
-        <span className="rounded-full border border-[rgba(185,181,197,0.28)] bg-[rgba(7,7,7,0.42)] px-2 py-1">HOVER / TAP</span>
+        <span className="rounded-full border border-[rgba(185,181,197,0.28)] bg-[rgba(7,7,7,0.42)] px-2 py-1">HOVER / HOLD</span>
         <span className="rounded-full border border-[rgba(185,181,197,0.28)] bg-[rgba(7,7,7,0.42)] px-2 py-1">10 ATTRIBUTES</span>
       </div>
     </button>
