@@ -31,39 +31,28 @@ function HeroRadar() {
 }
 
 export function HeroTurntable() {
-  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
   const [isHeroRadarOpen, setIsHeroRadarOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
-      return;
-    }
-
-    const query = window.matchMedia("(hover: none) and (pointer: coarse)");
-    const syncPointerMode = () => setIsCoarsePointer(query.matches);
-
-    syncPointerMode();
-    query.addEventListener("change", syncPointerMode);
-
-    return () => query.removeEventListener("change", syncPointerMode);
-  }, []);
-
-  useEffect(() => {
-    if (!isCoarsePointer || !isHeroRadarOpen) {
+    if (!isHeroRadarOpen) {
       return;
     }
 
     const handlePointerDown = (event: PointerEvent) => {
-      if (!buttonRef.current?.contains(event.target as Node)) {
+      if (event.pointerType === "mouse" || !(event.target instanceof Node)) {
+        return;
+      }
+
+      if (!buttonRef.current?.contains(event.target)) {
         setIsHeroRadarOpen(false);
       }
     };
 
-    window.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("pointerdown", handlePointerDown, { passive: true });
 
     return () => window.removeEventListener("pointerdown", handlePointerDown);
-  }, [isCoarsePointer, isHeroRadarOpen]);
+  }, [isHeroRadarOpen]);
 
   return (
     <button
