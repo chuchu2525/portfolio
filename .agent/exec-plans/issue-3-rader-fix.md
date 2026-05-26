@@ -19,8 +19,8 @@ This ExecPlan is a living document. The sections `Progress`, `Surprises & Discov
 - [x] (2026-05-26 JST) `origin/main` から clean branch `issue-3-radar-fix-clean` を作成した。
 - [x] (2026-05-26 JST) clean branch に Hero 関連の最終差分だけを適用し、テスト自動化コミットを PR から除外する状態にした。
 - [x] (2026-05-26 JST) clean branch で `npm run typecheck` と `npm run build` が成功することを確認した。
-- [ ] clean branch を commit / push し、Hero レーダー専用 PR を作成する。
-- [ ] 旧 PR `#8` を close する。
+- [x] (2026-05-26 JST) clean branch を commit / push し、Hero レーダー専用 PR `#9` を作成した。
+- [x] (2026-05-26 JST) 旧 PR `#8` を close した。
 
 ## Surprises & Discoveries
 
