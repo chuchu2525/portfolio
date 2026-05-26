@@ -16,7 +16,6 @@ test.describe("home page", () => {
   });
 
   test("toggles the hero record radar", async ({ page }) => {
-    test.skip(test.info().project.name === "mobile-chrome", "mobile uses long press preview instead of click toggle");
     await page.goto("/");
 
     const turntable = page.getByRole("button", { name: "スキルレーダーを表示" });
@@ -28,37 +27,35 @@ test.describe("home page", () => {
     await expect(turntable).toHaveAttribute("data-radar-open", "true");
   });
 
-  test("shows the hero radar only while long pressing on mobile", async ({ page }) => {
-    test.skip(test.info().project.name !== "mobile-chrome", "desktop keeps click toggle behavior");
+  test("shows the hero radar on hover for desktop pointers", async ({ page }) => {
+    test.skip(test.info().project.name === "mobile-chrome", "mobile does not use hover preview");
+    await page.goto("/");
+
+    const turntable = page.getByRole("button", { name: "スキルレーダーを表示" });
+    await expect(turntable).toHaveAttribute("data-radar-open", "false");
+
+    await turntable.hover();
+
+    await expect(turntable).toHaveAttribute("data-radar-open", "false");
+    await expect(turntable.locator(".record-radar-surface")).toHaveCSS("opacity", "1");
+  });
+
+  test("toggles the hero radar and closes it on an outside tap for mobile", async ({ page }) => {
+    test.skip(test.info().project.name !== "mobile-chrome", "desktop keeps hover and click behavior");
     await page.goto("/");
 
     const turntable = page.getByRole("button", { name: "スキルレーダーを表示" });
     await expect(turntable).toHaveAttribute("aria-pressed", "false");
     await expect(turntable).toHaveAttribute("data-radar-open", "false");
 
-    await turntable.dispatchEvent("pointerdown", {
-      pointerId: 1,
-      pointerType: "touch",
-      clientX: 160,
-      clientY: 160,
-      isPrimary: true,
-      bubbles: true
-    });
-    await page.waitForTimeout(320);
+    await turntable.click();
 
-    await expect(turntable).toHaveAttribute("aria-pressed", "false");
+    await expect(turntable).toHaveAttribute("aria-pressed", "true");
     await expect(turntable).toHaveAttribute("data-radar-open", "true");
 
-    await turntable.dispatchEvent("pointerup", {
-      pointerId: 1,
-      pointerType: "touch",
-      clientX: 160,
-      clientY: 160,
-      isPrimary: true,
-      bubbles: true
-    });
-    await page.waitForTimeout(50);
+    await page.locator("body").click({ position: { x: 8, y: 8 } });
 
+    await expect(turntable).toHaveAttribute("aria-pressed", "false");
     await expect(turntable).toHaveAttribute("data-radar-open", "false");
   });
 
