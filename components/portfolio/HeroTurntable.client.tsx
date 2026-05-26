@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getSkillScore, maxRadarScore, skillAttributes } from "@/lib/portfolio-data";
 import { buildRadarGeometry, getHeroAxisStyle, heroRadarRadius, radarCenter } from "./radar";
 
@@ -31,10 +31,43 @@ function HeroRadar() {
 }
 
 export function HeroTurntable() {
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
   const [isHeroRadarOpen, setIsHeroRadarOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+      return;
+    }
+
+    const query = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const syncPointerMode = () => setIsCoarsePointer(query.matches);
+
+    syncPointerMode();
+    query.addEventListener("change", syncPointerMode);
+
+    return () => query.removeEventListener("change", syncPointerMode);
+  }, []);
+
+  useEffect(() => {
+    if (!isCoarsePointer || !isHeroRadarOpen) {
+      return;
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!buttonRef.current?.contains(event.target as Node)) {
+        setIsHeroRadarOpen(false);
+      }
+    };
+
+    window.addEventListener("pointerdown", handlePointerDown);
+
+    return () => window.removeEventListener("pointerdown", handlePointerDown);
+  }, [isCoarsePointer, isHeroRadarOpen]);
 
   return (
     <button
+      ref={buttonRef}
       className="hero-turntable relative aspect-square w-[min(100%,420px)] cursor-pointer justify-self-center rounded-xl border-[5px] border-[#343434] bg-[#111] shadow-[0_28px_60px_rgba(0,0,0,0.55),inset_0_2px_8px_rgba(255,255,255,0.07)] outline-none focus-visible:ring-4 focus-visible:ring-[rgba(255,210,69,0.55)] md:w-[min(100%,340px)] lg:w-[min(100%,520px)]"
       type="button"
       aria-label="スキルレーダーを表示"

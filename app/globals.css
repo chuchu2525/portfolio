@@ -79,7 +79,27 @@ button {
     transition: filter 220ms ease, opacity 220ms ease;
   }
 
-  .hero-turntable:hover .record-grooves,
+  .hero-turntable {
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero-turntable:hover .record-grooves,
+    .hero-turntable:hover .record-center-label,
+    .hero-turntable:hover .record-radar-surface,
+    .hero-turntable:hover .hero-axis-caption {
+      opacity: 1;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero-turntable:hover .record-grooves {
+      animation-play-state: paused;
+      filter: brightness(0.78) saturate(0.9);
+    }
+  }
+
   .hero-turntable:focus-visible .record-grooves,
   .hero-turntable[data-radar-open="true"] .record-grooves {
     animation-play-state: paused;
@@ -126,7 +146,13 @@ button {
     letter-spacing: 0.14em;
   }
 
-  .hero-turntable:hover .record-center-label,
+  @media (hover: hover) and (pointer: fine) {
+    .hero-turntable:hover .record-center-label {
+      opacity: 0.84;
+      transform: scale(0.92);
+    }
+  }
+
   .hero-turntable:focus-visible .record-center-label,
   .hero-turntable[data-radar-open="true"] .record-center-label {
     opacity: 0.84;
@@ -142,7 +168,13 @@ button {
     transition: opacity 220ms ease, transform 220ms ease;
   }
 
-  .hero-turntable:hover .record-radar-surface,
+  @media (hover: hover) and (pointer: fine) {
+    .hero-turntable:hover .record-radar-surface {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   .hero-turntable:focus-visible .record-radar-surface,
   .hero-turntable[data-radar-open="true"] .record-radar-surface {
     opacity: 1;
@@ -190,7 +222,12 @@ button {
     transition: opacity 220ms ease;
   }
 
-  .hero-turntable:hover .hero-axis-caption,
+  @media (hover: hover) and (pointer: fine) {
+    .hero-turntable:hover .hero-axis-caption {
+      opacity: 1;
+    }
+  }
+
   .hero-turntable:focus-visible .hero-axis-caption,
   .hero-turntable[data-radar-open="true"] .hero-axis-caption {
     opacity: 1;
