@@ -2,7 +2,7 @@
 
 This ExecPlan is a living document. The sections `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work proceeds.
 
-この ExecPlan は `/Users/nagahamayuu/Documents/Projects/yuukun-portfolio/.agent/PLANS.md` に従って管理する。
+この ExecPlan は `./.agent/PLANS.md` に従って管理する。
 
 ## Purpose / Big Picture
 
