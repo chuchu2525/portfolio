@@ -24,8 +24,8 @@ This ExecPlan is a living document. The sections `Progress`, `Surprises & Discov
 
 ## Surprises & Discoveries
 
-- Observation: `issue-3-rader-fix` はローカル `main` から切られていたため、`origin/main` にはない `テスト自動化と品質チェックを追加` コミットが PR に混ざった。
-  Evidence: `git log --oneline origin/main..issue-3-rader-fix` に `7b9e071 テスト自動化と品質チェックを追加` が含まれていた。
+- Observation: `issue-3-radar-fix` はローカル `main` から切られていたため、`origin/main` にはない `テスト自動化と品質チェックを追加` コミットが PR に混ざった。
+  Evidence: `git log --oneline origin/main..issue-3-radar-fix` に `7b9e071 テスト自動化と品質チェックを追加` が含まれていた。
 
 - Observation: `origin/main` には Playwright / Vitest の実行基盤がまだない。
   Evidence: `origin/main` の `package.json` は `dev`, `build`, `start`, `typecheck` のみを持つ。
