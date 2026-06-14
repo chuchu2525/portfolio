@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getSkillScore, maxRadarScore, skillAttributes } from "@/lib/portfolio-data";
 import { buildRadarGeometry, getHeroAxisStyle, heroRadarRadius, radarCenter } from "./radar";
 
@@ -32,15 +32,55 @@ function HeroRadar() {
 
 export function HeroTurntable() {
   const [isHeroRadarOpen, setIsHeroRadarOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  const toggleHeroRadar = () => {
+    setIsHeroRadarOpen((current) => !current);
+  };
+
+  useEffect(() => {
+    if (!isHeroRadarOpen) {
+      return;
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (event.pointerType === "mouse" || !(event.target instanceof Node)) {
+        return;
+      }
+
+      if (!buttonRef.current?.contains(event.target)) {
+        setIsHeroRadarOpen(false);
+      }
+    };
+
+    window.addEventListener("pointerdown", handlePointerDown, { passive: true });
+
+    return () => window.removeEventListener("pointerdown", handlePointerDown);
+  }, [isHeroRadarOpen]);
 
   return (
     <button
+      ref={buttonRef}
       className="hero-turntable relative aspect-square w-[min(100%,420px)] cursor-pointer justify-self-center rounded-xl border-[5px] border-[#343434] bg-[#111] shadow-[0_28px_60px_rgba(0,0,0,0.55),inset_0_2px_8px_rgba(255,255,255,0.07)] outline-none focus-visible:ring-4 focus-visible:ring-[rgba(255,210,69,0.55)] md:w-[min(100%,340px)] lg:w-[min(100%,520px)]"
       type="button"
       aria-label="スキルレーダーを表示"
       aria-pressed={isHeroRadarOpen}
       data-radar-open={isHeroRadarOpen}
-      onClick={() => setIsHeroRadarOpen((current) => !current)}
+      onPointerDown={(event) => {
+        if (event.pointerType === "mouse") {
+          return;
+        }
+
+        toggleHeroRadar();
+      }}
+      onKeyDown={(event) => {
+        if (event.key !== "Enter" && event.key !== " ") {
+          return;
+        }
+
+        event.preventDefault();
+        toggleHeroRadar();
+      }}
     >
       <div className="absolute inset-[8%] rounded-full bg-[#0a0a0a]" />
       <div className="record-grooves motion-safe-spin absolute inset-[9%] z-[1] rounded-full shadow-[0_18px_34px_rgba(0,0,0,0.7)]">
