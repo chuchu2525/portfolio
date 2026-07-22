@@ -36,6 +36,10 @@ export function HeroTurntable() {
   const [isHeroRadarOpen, setIsHeroRadarOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
+  const toggleHeroRadar = () => {
+    setIsHeroRadarOpen((current) => !current);
+  };
+
   useEffect(() => {
     if (!isHeroRadarOpen) {
       return;
@@ -67,7 +71,21 @@ export function HeroTurntable() {
       aria-label="スキルレーダーを表示"
       aria-pressed={isHeroRadarOpen}
       data-radar-open={isHeroRadarOpen}
-      onClick={() => setIsHeroRadarOpen((current) => !current)}
+      onPointerDown={(event) => {
+        if (event.pointerType === "mouse") {
+          return;
+        }
+
+        toggleHeroRadar();
+      }}
+      onKeyDown={(event) => {
+        if (event.key !== "Enter" && event.key !== " ") {
+          return;
+        }
+
+        event.preventDefault();
+        toggleHeroRadar();
+      }}
     >
       <div className="absolute inset-[8%] rounded-full bg-[#0a0a0a]" />
       <div className={cn(styles.grooves, "absolute inset-[9%] z-[1] rounded-full shadow-[0_18px_34px_rgba(0,0,0,0.7)]")}>
