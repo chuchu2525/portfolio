@@ -72,17 +72,17 @@ This ExecPlan is a living document. The sections `Progress`, `Surprises & Discov
 
 ## Context and Orientation
 
-対象ファイルは `components/portfolio/HeroTurntable.client.tsx` と `app/globals.css` である。`HeroTurntable.client.tsx` は Hero のレコード盤 button を描画し、`data-radar-open` を使ってレーダー表示状態を CSS へ渡している。`app/globals.css` は `.hero-turntable` 配下のレコード盤、中心ラベル、レーダー表示面、caption の見た目を制御している。
+対象ファイルは `components/portfolio/HeroTurntable.client.tsx` と `components/portfolio/HeroTurntable.module.css` である。`HeroTurntable.client.tsx` は Hero のレコード盤 button を描画し、`data-radar-open` を使ってレーダー表示状態を CSS へ渡している。`HeroTurntable.module.css` はレコード盤、中心ラベル、レーダー表示面、caption の見た目をコンポーネント内に閉じて制御している。
 
 Skill Matrix は `components/portfolio/SkillMatrix.client.tsx` にあり、今回の修正対象ではない。Skill Matrix は常に 1 属性を選択する navigation UI で、Hero のレコード盤 preview とは責務が違う。
 
 ## Plan of Work
 
-`origin/main` から clean branch を切り、旧ブランチから `components/portfolio/HeroTurntable.client.tsx` と `app/globals.css` の最終差分だけを持ってくる。`e2e/home.spec.ts` や package 周辺のテスト自動化ファイルは含めない。
+`origin/main` から clean branch を切り、旧ブランチから `components/portfolio/HeroTurntable.client.tsx` と Hero レコード盤用 CSS の最終差分だけを持ってくる。`e2e/home.spec.ts` や package 周辺のテスト自動化ファイルは含めない。
 
 `HeroTurntable.client.tsx` では、touch/pen の `pointerdown` と keyboard 操作で `isHeroRadarOpen` を toggle する。`isHeroRadarOpen` が true の間だけ window の `pointerdown` を passive listener として監視し、mouse pointer は無視する。button 外の touch/pen pointer を検知したら close する。
 
-`app/globals.css` では、hover 表示を `@media (hover: hover) and (pointer: fine)` に限定する。`data-radar-open="true"` と `focus-visible` の表示は維持する。これにより PC hover は残しつつ、mobile で hover 相当の見た目が残る状態を避ける。
+`HeroTurntable.module.css` では、hover 表示を `@media (hover: hover) and (pointer: fine)` に限定する。`data-radar-open="true"` と `focus-visible` の表示は維持する。これにより PC hover は残しつつ、mobile で hover 相当の見た目が残る状態を避ける。
 
 ## Concrete Steps
 
@@ -96,7 +96,7 @@ clean branch を作成する。
 
     git checkout issue-3-rader-fix -- app/globals.css components/portfolio/HeroTurntable.client.tsx .agent/exec-plans/issue-3-rader-fix.md
 
-差分が Hero 関連に閉じていることを確認する。
+差分が Hero 関連ファイルとこの ExecPlan に限定されていることを確認する。
 
     git diff --name-status origin/main
 
@@ -137,7 +137,7 @@ clean branch は `origin/main` から作り直せる。旧ブランチ `issue-3-
 
 `components/portfolio/HeroTurntable.client.tsx` は `HeroTurntable()` を export する。追加する状態は `isHeroRadarOpen: boolean` で、DOM 参照として `buttonRef: HTMLButtonElement | null` を持つ。button は `aria-pressed={isHeroRadarOpen}` と `data-radar-open={isHeroRadarOpen}` を持つ。
 
-`app/globals.css` では、`.hero-turntable:hover ...` の表示ルールを `@media (hover: hover) and (pointer: fine)` の内側に移す。`.hero-turntable[data-radar-open="true"] ...` は touch/pen と keyboard による open state として残す。
+`components/portfolio/HeroTurntable.module.css` では、`.turntable:hover ...` の表示ルールを `@media (hover: hover) and (pointer: fine)` の内側に置く。`.turntable[data-radar-open="true"] ...` は touch/pen と keyboard による open state として残す。
 
 変更履歴:
 
