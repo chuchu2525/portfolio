@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  pull_request:
+  merge_group:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: typecheck & build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      # ロックファイル厳密一致でインストール（勝手な解決をしない）
+      - run: npm ci --ignore-scripts
+      - run: npm run typecheck
+      - run: npm run build
+
+  audit:
+    name: npm audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      # high 以上の既知脆弱性があれば落とす
+      - run: npm audit --package-lock-only --ignore-scripts --audit-level=high
+
+  security-tests:
+    name: security control tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - run: python3 -m unittest discover -s tests/security -v
+
+  gate:
+    name: CI gate
+    if: ${{ always() }}
+    needs: [build, audit, security-tests]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require every check to succeed
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        # PRのコードをcheckoutせず、GitHubが渡す結果を判定する。
+        run: |
+          python3 - <<'PYTHON'
+          import json, os, sys
+          needs = json.loads(os.environ["NEEDS_JSON"])
+          required = ("build", "audit", "security-tests")
+          failed = [name for name in required if needs.get(name, {}).get("result") != "success"]
+          if failed:
+              sys.exit("Required jobs did not succeed: " + ", ".join(failed))
+          print("All required jobs succeeded")
+          PYTHON
