@@ -13,8 +13,8 @@
 
 - [x] (2026-10-30 JST) main相当の作業ブランチへPR #13の0020708をfast-forwardで取り込み、既存の設定を確認した。
 - [x] (2026-10-30 JST) 要件と全体設計、段階別の合格条件を作成した。
-- [ ] 初期CIの修正、レポート・gateの検証処理と負のテストを実装する。
-- [ ] ローカル検証と証跡を記録してコミットする。
+- [x] (2026-11-02 JST) 初期CIの修正、レポート検証とgateの負のテストを実装した。
+- [x] (2026-11-02 JST) テスト10件、actionlint、依存取得、型チェック・本番ビルド、npm auditを検証し、docs/security/validation.mdに証跡を記録した。設計コミット46f707fに続けてCI変更をコミットする。
 - [ ] リモート導入後、必須チェックとDependabot設定を適用し、実際のPRで阻止を検証する。
 
 ## Surprises & Discoveries
@@ -40,7 +40,7 @@ OSV Action v2.5.0の公式SHAは8deb546fdb875b9996d27d4950be7312dac076a1。内�
 ## Outcomes & Retrospective
 
 
-設計を作成済み。初期CIの実装・実証は進行中。企業利用可能という宣言はまだ行わない。
+設計と初期CIのローカル実装・検証を完了。CI gateとOSV gateを追加し、自動マージ定義を撤去した。npm auditは0件、テスト10件・構文検査・型チェック・本番ビルドは成功した。GitHub側の必須化と実PRでの阻止検証はpush後に残るため、企業利用可能という宣言は行わない。
 
 ## Context and Orientation
 
@@ -92,6 +92,8 @@ GitHubでの合格は、CI gateとOSV gateが実PRで報告され、通常権限
 ## Interfaces and Dependencies
 
 
-レポートとgateの検証はscripts/security/配下のPython標準ライブラリのみで実装する。テストはtests/security/。レポート処理はJSONファイルを入力にサマリーを出力し、不正形式は非ゼロ終了する。gateはGitHub needsのJSONと必須ジョブ名を入力に取り、列挙したジョブがすべてsuccessの場合だけ0で終了する。レポートの出力を合否の根拠にすることと、OSVの脆弱性判定は区別する。
+レポート処理はscripts/security/osv_summary.pyにPython標準ライブラリだけで実装した。render(data, outcome)はサマリーを返し、不正形式はValueErrorにする。CLIはJSONファイル・サマリー出力先・--outcomeを受け、不正時は非ゼロ終了する。gateはワークフローにインラインで実装し、GitHub needsのJSONをNEEDS_JSONから受け、固定した必須ジョブがすべてsuccessの場合だけ0で終了する。OSV gateはEVENT_NAMEも受け、PRは差分スキャン、merge_group・push・scheduleは全体スキャンを要求する。テストはtests/security/test_security.pyで実際のインラインgateを抽出して実行する。レポートの形式検証と、OSVの脆弱性判定は区別する。
 
 更新履歴: 2026-10-30 初版。合意した全体方針と初期CIの実装範囲、リモート導入後の検証を分離した。
+
+更新履歴: 2026-11-02 ローカル実装と検証を反映。OSVのPR再利用処理がGITHUB_BASE_REFに依存するためmerge_groupでは全体スキャンを要求した。検証証跡と未適用のGitHub設定はdocs/security/validation.mdに分離し、remoteの合格を未実施として保持した。
