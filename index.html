@@ -1,107 +1,23 @@
 <!doctype html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Yuukun Portfolio Prototypes</title>
-    <style>
-      :root {
-        color-scheme: dark;
-        --bg: #111111;
-        --panel: #202020;
-        --line: #454652;
-        --text: #e8e4df;
-        --muted: #b9b5c5;
-        --yellow: #ffd245;
-        --denim: #1a237e;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 32px;
-        color: var(--text);
-        background:
-          repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 6px),
-          var(--bg);
-        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-
-      main {
-        width: min(920px, 100%);
-      }
-
-      h1 {
-        margin: 0 0 12px;
-        font-size: clamp(40px, 7vw, 76px);
-        line-height: 0.96;
-      }
-
-      p {
-        margin: 0 0 28px;
-        color: var(--muted);
-        line-height: 1.7;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
-      }
-
-      a {
-        display: grid;
-        min-height: 190px;
-        align-content: end;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 24px;
-        color: inherit;
-        text-decoration: none;
-        background:
-          linear-gradient(135deg, rgba(255, 210, 69, 0.12), transparent),
-          var(--panel);
-      }
-
-      a strong {
-        color: var(--yellow);
-        font-size: 24px;
-      }
-
-      a span {
-        display: block;
-        margin-top: 10px;
-        color: var(--muted);
-        line-height: 1.5;
-      }
-
-      @media (max-width: 720px) {
-        .grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>Portfolio Prototypes</h1>
-      <p>古着とレコードをモチーフにしたエンジニアポートフォリオのモック置き場です。要件化の中心は v2 です。</p>
-      <div class="grid">
-        <a href="prototypes/v1/index.html">
-          <strong>v1</strong>
-          <span>最初のモック。生成背景とジャケット型スキルUI。</span>
-        </a>
-        <a href="prototypes/v2/index.html">
-          <strong>v2</strong>
-          <span>CRAFTSMAN.DEV 方向。デニム、レコード、Field Notes、Project Crate。</span>
-        </a>
-      </div>
-    </main>
-  </body>
-</html>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ポートフォリオ / 採用デザインと過去案</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:48px 24px;color:#242424;background:#f1f1ee;font:14px/1.8 -apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif}main{max-width:980px;margin:auto}h1{margin:0 0 12px;font-size:clamp(26px,5vw,40px);letter-spacing:-.04em}h2{margin:35px 0 15px;font-size:21px}p{margin:0 0 22px;color:#64645d}a{color:inherit;text-underline-offset:4px}a:focus-visible{outline:3px solid #4e6481;outline-offset:5px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.card{display:block;padding:23px;border:1px solid #d2d2ca;border-radius:9px;text-decoration:none;background:#fbfbf7}.card:hover{border-color:#7b7b71}.card strong{display:block;font-size:18px;line-height:1.6}.card span{display:block;margin-top:9px;font-size:12px;color:#64645d}.selected{border:2px solid #33332c;background:#fffff8;margin:24px 0}.selected strong{font-size:24px}.selected mark{display:inline-block;margin-bottom:12px;padding:2px 9px;border-radius:3px;background:#ffdf00;font-size:11px}.notes{margin-top:26px;font-size:12px}@media(max-width:640px){body{padding:28px 20px}.grid{grid-template-columns:1fr}.selected strong{font-size:21px}}
+</style>
+</head>
+<body><main>
+<h1>ポートフォリオの画面設計</h1>
+<p>採用した最新版と、これまでの検討案をまとめています。</p>
+<a class="card selected" href="prototypes/issue-18-design-review.html?v=adopted-20261117"><mark>採用 / 2026-11-17</mark><strong>Issue #18・日本語 / Rauno寄り ↗</strong><span>白黒と黄色、大きな文字、目盛り状の章ナビ、実績を中心にした構成。初期表示は要約バー・実績3件＋横長の連携実績。上部から元の案との比較もできます。</span></a>
+<h2>過去の案</h2>
+<div class="grid">
+<a class="card" href="prototypes/issue-18-image-base.html"><strong>Issue #18・画像ベース案</strong><span>Raunoらしさを足す前の日本語案。画像1・2の実績配置を比較できます。</span></a>
+<a class="card" href="prototypes/issue-5-design-review.html?v=archive-20261117"><strong>季節感のある3案＋Rauno参照D案</strong><span>部屋・季刊誌・デニム・横にめくる作品集。4季節と各画面を比較できます。</span></a>
+<a class="card" href="prototypes/issue-5-design-review-round1.html"><strong>最初の白・紙色・暗色3案</strong><span>Workspace・Journal・Indexの比較。6画面とスマホ表示を確認できます。</span></a>
+<a class="card" href="prototypes/v2/index.html"><strong>v2 / デニムとレコード</strong><span>従来の実装に対応する過去案。スキルレーダーとField Notes。</span></a>
+<a class="card" href="prototypes/v1/index.html"><strong>v1 / 初期モック</strong><span>生成背景とジャケット型スキルUI。</span></a>
+</div>
+<p class="notes">画面デザインの採用です。職歴・実績などの仮文言の確定と、本番実装への反映は後続作業です。<br><a href="prototypes/README.md">検討履歴の説明</a> / <a href="docs/requirements.md">要件の正本</a></p>
+</main></body></html>
