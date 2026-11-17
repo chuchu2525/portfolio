@@ -1,21 +1,44 @@
-import { navLinkClass } from "./styles";
-
+import Link from "next/link";
+import { pageClass, navLinkClass } from "./styles";
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 grid min-h-[66px] grid-cols-1 items-center gap-7 border-b-2 border-dashed border-[rgba(189,194,255,0.35)] px-[clamp(18px,4vw,48px)] shadow-[0_4px_0_rgba(0,0,0,0.35)] [background:linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent),var(--denim)] sm:min-h-[84px] sm:grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr]">
-      <a className="font-serif text-2xl font-extrabold italic text-[var(--yellow)] shadow-black [text-shadow:2px_2px_0_#020202]" href="/">
-        YUU&apos;s room
+    <>
+      <a
+        href="#main-content"
+        className="absolute -top-20 left-5 z-50 bg-white p-3 focus:top-2"
+      >
+        本文へ移動
       </a>
-      <nav className="hidden gap-[clamp(14px,2.6vw,30px)] font-serif text-[19px] lg:flex" aria-label="Primary">
-        <a className={navLinkClass} href="/">Home</a>
-        <a className={navLinkClass} href="/#matrix">Skills</a>
-        <a className={navLinkClass} href="/#projects">Projects</a>
-        <a className={navLinkClass} href="/#about">Profile</a>
-        <a className={navLinkClass} href="/#contact">Contact</a>
-      </nav>
-      <a className="hidden min-h-9 items-center justify-center justify-self-end rounded-full border border-[#493b00] bg-linear-to-b from-[#ffe279] to-[var(--yellow)] px-6 text-xs font-bold tracking-[0.18em] text-[#241a00] shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_3px_0_rgba(0,0,0,0.4)] sm:inline-flex" href="/#contact">
-        Contact
-      </a>
-    </header>
+      <header
+        className={`${pageClass} flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-5 md:py-7`}
+      >
+        <Link
+          href="/"
+          className="flex min-h-11 items-center gap-2.5"
+          aria-label="Chuchu ホーム"
+        >
+          <strong className="text-[22px] font-semibold tracking-[-.06em]">
+            Chuchu
+          </strong>
+          <i
+            className="size-2 rounded-full bg-[var(--yellow)]"
+            aria-hidden="true"
+          />
+          <span className="text-xs">/ AIエンジニア</span>
+        </Link>
+        <nav className="flex gap-6 sm:gap-9" aria-label="メインナビゲーション">
+          {[
+            ["projects", "実績"],
+            ["about", "考え方"],
+            ["journey", "経歴"],
+            ["contact", "連絡先"],
+          ].map(([id, label]) => (
+            <Link key={id} href={`/#${id}`} className={navLinkClass}>
+              {label}
+            </Link>
+          ))}
+        </nav>
+      </header>
+    </>
   );
 }

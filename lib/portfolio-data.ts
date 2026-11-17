@@ -8,7 +8,7 @@ export const skillAttributeIds = [
   "security",
   "performance",
   "delivery",
-  "operations"
+  "operations",
 ] as const;
 
 export type SkillAttributeId = (typeof skillAttributeIds)[number];
@@ -45,6 +45,7 @@ export type Project = {
   featured?: boolean;
   featuredOrder?: number;
   coverCode: string;
+  artwork: "rag" | "vision" | "notebook" | "automation";
   highlights: string[];
   learnings: string[];
 };
@@ -61,8 +62,8 @@ export const skillAttributes: SkillAttribute[] = [
     stack: [
       { name: "課題整理", level: 82 },
       { name: "仕様化", level: 78 },
-      { name: "優先度設計", level: 72 }
-    ]
+      { name: "優先度設計", level: 72 },
+    ],
   },
   {
     id: "architecture",
@@ -75,8 +76,8 @@ export const skillAttributes: SkillAttribute[] = [
     stack: [
       { name: "技術選定", level: 76 },
       { name: "責務分割", level: 74 },
-      { name: "非機能設計", level: 68 }
-    ]
+      { name: "非機能設計", level: 68 },
+    ],
   },
   {
     id: "frontend",
@@ -89,8 +90,8 @@ export const skillAttributes: SkillAttribute[] = [
     stack: [
       { name: "React / Next.js", level: 88 },
       { name: "TypeScript", level: 84 },
-      { name: "UI実装", level: 86 }
-    ]
+      { name: "UI実装", level: 86 },
+    ],
   },
   {
     id: "backend",
@@ -103,8 +104,8 @@ export const skillAttributes: SkillAttribute[] = [
     stack: [
       { name: "API設計", level: 78 },
       { name: "ドメインロジック", level: 74 },
-      { name: "外部連携", level: 70 }
-    ]
+      { name: "外部連携", level: 70 },
+    ],
   },
   {
     id: "data",
@@ -117,8 +118,8 @@ export const skillAttributes: SkillAttribute[] = [
     stack: [
       { name: "スキーマ設計", level: 76 },
       { name: "PostgreSQL", level: 72 },
-      { name: "マイグレーション", level: 70 }
-    ]
+      { name: "マイグレーション", level: 70 },
+    ],
   },
   {
     id: "quality",
@@ -131,8 +132,8 @@ export const skillAttributes: SkillAttribute[] = [
     stack: [
       { name: "単体テスト", level: 74 },
       { name: "E2E", level: 68 },
-      { name: "レビュー設計", level: 76 }
-    ]
+      { name: "レビュー設計", level: 76 },
+    ],
   },
   {
     id: "security",
@@ -145,8 +146,8 @@ export const skillAttributes: SkillAttribute[] = [
     stack: [
       { name: "認証認可", level: 68 },
       { name: "入力検証", level: 72 },
-      { name: "秘密情報管理", level: 64 }
-    ]
+      { name: "秘密情報管理", level: 64 },
+    ],
   },
   {
     id: "performance",
@@ -159,8 +160,8 @@ export const skillAttributes: SkillAttribute[] = [
     stack: [
       { name: "表示速度", level: 76 },
       { name: "キャッシュ", level: 68 },
-      { name: "クエリ改善", level: 66 }
-    ]
+      { name: "クエリ改善", level: 66 },
+    ],
   },
   {
     id: "delivery",
@@ -173,8 +174,8 @@ export const skillAttributes: SkillAttribute[] = [
     stack: [
       { name: "CI/CD", level: 78 },
       { name: "クラウド", level: 70 },
-      { name: "デプロイ設計", level: 74 }
-    ]
+      { name: "デプロイ設計", level: 74 },
+    ],
   },
   {
     id: "operations",
@@ -187,122 +188,159 @@ export const skillAttributes: SkillAttribute[] = [
     stack: [
       { name: "ログ確認", level: 70 },
       { name: "保守改善", level: 76 },
-      { name: "障害対応", level: 62 }
-    ]
-  }
+      { name: "障害対応", level: 62 },
+    ],
+  },
 ];
 
+// 採用したIssue #18の画面案をもとにした掲載原稿。公開前に本人による事実確認を行う。
 export const projects: Project[] = [
   {
-    id: "analog-commerce",
-    title: "Analog E-Commerce",
-    role: "Full-stack Engineer",
-    period: "2025",
+    id: "rag-asset-assistant",
+    title: "社内資産管理のためのRAGチャットボット",
+    role: "AIシステム開発",
+    period: "2024–2025",
     category: "work",
     description:
-      "古着とヴィンテージオーディオを扱うEC体験。検索、商品属性、決済、在庫導線をひとつの触れるUIとして設計。",
+      "散らばった社内情報を、必要なときに。検索と対話で、知識にたどり着く仕組み。",
     problem:
-      "商品属性が複雑で、探しやすさと購入導線の両立が難しい状態を整理する必要があった。",
+      "社内の資産情報やドキュメントが分散し、必要な情報を見つけるまでに手間がかかる。",
     approach:
-      "商品分類、検索条件、決済までの流れを一続きの体験として見直し、UIとデータ構造の両方から設計した。",
+      "情報を検索するRAGの構成を検討し、回答の根拠を辿れる対話体験を設計。Recall・MRR・nDCGを使い、検索の品質を確かめる。",
     result:
-      "商品を探す、比較する、購入する流れを明確にし、実装と改善を続けやすいEC基盤として整理した。",
+      "検索・回答・評価をひとつの流れとして整理。使う人が情報の根拠を確認できることを重視した。",
     attributes: [
       { id: "requirements", level: "experienced" },
-      { id: "frontend", level: "experienced" },
-      { id: "backend", level: "experienced" },
-      { id: "data", level: "experienced" },
-      { id: "performance", level: "learning" }
-    ],
-    techTags: ["Next.js", "TypeScript", "Stripe", "PostgreSQL"],
-    featured: true,
-    featuredOrder: 1,
-    coverCode: "Next.js / Stripe",
-    highlights: ["商品属性の整理", "検索体験の改善", "決済導線の設計"],
-    learnings: ["UIだけでなく、検索条件とデータ設計を一緒に整える重要性", "購入導線は画面遷移よりも迷いの少なさで評価すること"]
-  },
-  {
-    id: "denimdb-migrator",
-    title: "DenimDB Migrator",
-    role: "Systems Architect",
-    period: "2024",
-    category: "work",
-    description:
-      "商品、在庫、サイズ表記の移行を安全に行うためのデータ移行とロールバック設計。",
-    problem:
-      "サイズ表記や在庫履歴が複雑で、移行失敗時の戻し方や検証手順が曖昧になりやすかった。",
-    approach:
-      "移行処理を段階に分け、検証ログとロールバック手順を同時に設計して、失敗時に追跡できる状態を作った。",
-    result:
-      "移行作業の確認ポイントが明確になり、データ変更を安全に進めるための運用手順まで含めて整備した。",
-    attributes: [
       { id: "architecture", level: "experienced" },
       { id: "backend", level: "experienced" },
       { id: "data", level: "experienced" },
       { id: "quality", level: "experienced" },
-      { id: "delivery", level: "learning" }
+      { id: "security", level: "learning" },
     ],
-    techTags: ["Go", "PostgreSQL", "GitHub Actions"],
+    techTags: ["Python", "RAG", "検索評価", "Graph RAG"],
     featured: true,
-    featuredOrder: 2,
-    coverCode: "DB / CI",
-    highlights: ["移行手順の分割", "ロールバック生成", "検証ログの整備"],
-    learnings: ["データ移行は実装よりも検証可能性が重要になること", "ロールバック設計は後付けではなく移行設計と同時に考えること"]
+    featuredOrder: 1,
+    coverCode: "01 / RAG",
+    artwork: "rag",
+    highlights: ["社内情報の検索と対話", "根拠を辿れる回答", "検索品質の評価"],
+    learnings: [
+      "回答だけでなく、検索段階から品質を確かめる。",
+      "情報の出典を示し、利用者が判断できる体験にする。",
+    ],
   },
   {
-    id: "telemetry-9",
-    title: "Telemetry 9",
-    role: "Platform Engineer",
-    period: "2024",
-    category: "work",
+    id: "restaurant-seat-intelligence",
+    title: "画像から捉える、飲食店の座席利用",
+    role: "大学での研究",
+    period: "2021–2023",
+    category: "learning",
     description:
-      "分散サービスの状態、デプロイ履歴、障害兆候をレコード溝のような時系列で読める監視ダッシュボード。",
+      "人の検出と追跡から、座席の利用状況を可視化。画像認識を、現場を知る手がかりに。",
     problem:
-      "障害兆候、デプロイ履歴、サービス状態が分散していて、運用時に状況判断へ時間がかかっていた。",
+      "飲食店の座席がどのように使われているかを、人の動きと結びつけて捉えたい。",
     approach:
-      "時系列で状態変化を読めるダッシュボードに集約し、原因調査に必要な情報へ短い導線で到達できるようにした。",
+      "YOLOv5による検出、ByteTrackによる追跡、OpenPoseによる姿勢推定を組み合わせ、座席利用を把握する方法を研究。",
     result:
-      "運用時の確認順序が整理され、障害兆候の把握とデプロイ影響の確認を進めやすくした。",
-    attributes: [
-      { id: "frontend", level: "experienced" },
-      { id: "performance", level: "experienced" },
-      { id: "delivery", level: "experienced" },
-      { id: "operations", level: "experienced" },
-      { id: "security", level: "learning" }
-    ],
-    techTags: ["React", "D3", "AWS", "Observability"],
-    featured: true,
-    featuredOrder: 3,
-    coverCode: "D3 / Infra",
-    highlights: ["時系列UI", "障害兆候の可視化", "運用導線の短縮"],
-    learnings: ["運用UIは情報量よりも確認順序の設計が効くこと", "監視データは見せ方次第でチームの判断速度を変えられること"]
-  },
-  {
-    id: "care-label-auth",
-    title: "Care Label Auth",
-    role: "Backend Engineer",
-    period: "2023",
-    category: "work",
-    description:
-      "権限、入力検証、監査ログをケアラベルのように明文化し、管理画面の認証認可を整理した経験。",
-    problem:
-      "管理画面の権限や入力検証のルールが散らばり、仕様確認と実装判断に時間がかかっていた。",
-    approach:
-      "権限表、入力検証、監査ログをひとまとまりの仕様として整理し、実装時に参照しやすい形へ落とし込んだ。",
-    result:
-      "認証認可まわりの判断基準が明確になり、レビューや保守で確認すべきポイントを揃えやすくした。",
+      "画像から人の動きと座席の関係を読み取るための検討を進めた。検出と追跡のつながりを重視した。",
     attributes: [
       { id: "requirements", level: "learning" },
-      { id: "backend", level: "experienced" },
-      { id: "security", level: "experienced" },
-      { id: "quality", level: "learning" },
-      { id: "operations", level: "learning" }
+      { id: "data", level: "experienced" },
+      { id: "quality", level: "experienced" },
+      { id: "performance", level: "learning" },
     ],
-    techTags: ["Auth", "API", "Audit Log"],
-    coverCode: "Auth / API",
-    highlights: ["権限表の整理", "入力検証", "監査ログ"],
-    learnings: ["セキュリティ要件はコードだけでなく仕様として読める状態が必要なこと", "監査ログは後から足すより業務フローと一緒に設計すること"]
-  }
+    techTags: ["Python", "YOLOv5", "ByteTrack", "OpenPose"],
+    featured: true,
+    featuredOrder: 2,
+    coverCode: "02 / VISION",
+    artwork: "vision",
+    highlights: ["人の検出・追跡", "姿勢推定", "座席利用の可視化"],
+    learnings: [
+      "検出精度と追跡の安定性を分けて考える。",
+      "実際の利用場面を想定して評価する。",
+    ],
+  },
+  {
+    id: "oneview-oss",
+    title: "OneView OSS",
+    role: "個人開発・OSS",
+    period: "2024",
+    category: "personal",
+    description:
+      "情報を、ひとつの見通しへ。日々の確認を軽くするWebアプリケーション。",
+    problem: "複数の情報を行き来する際に、確認の流れが途切れてしまう。",
+    approach:
+      "必要な情報を一覧できる画面と、詳細に進める導線を設計。Next.jsとTypeScriptを使って実装する。",
+    result:
+      "一覧から詳細まで、迷わず情報を確認できる構成を検討した。小さく作り、改善を続ける。",
+    attributes: [
+      { id: "architecture", level: "experienced" },
+      { id: "frontend", level: "experienced" },
+      { id: "backend", level: "learning" },
+      { id: "performance", level: "learning" },
+      { id: "delivery", level: "experienced" },
+    ],
+    techTags: ["Next.js", "TypeScript", "OSS"],
+    featured: true,
+    featuredOrder: 3,
+    coverCode: "03 / WEB APP",
+    artwork: "notebook",
+    highlights: ["情報を見渡すUI", "一覧と詳細の導線", "継続的な改善"],
+    learnings: [
+      "最初に情報の優先順位を決める。",
+      "使いながら改善できる小さな単位で実装する。",
+    ],
+  },
+  {
+    id: "mattermost-jira-automation",
+    title: "Mattermost × Jira 業務連携の自動化",
+    role: "業務自動化",
+    period: "2024",
+    category: "personal",
+    description:
+      "チャットからタスクへ。繰り返す作業をつなぎ、仕事の流れをなめらかに。",
+    problem:
+      "チャットとタスク管理を行き来する転記作業が、日々の業務に発生する。",
+    approach:
+      "MattermostとJiraのAPIを連携し、通知からタスク管理につながるワークフローを設計する。",
+    result: "手作業でつないでいた業務を、追跡できる処理の流れとして整理した。",
+    attributes: [
+      { id: "requirements", level: "experienced" },
+      { id: "backend", level: "experienced" },
+      { id: "security", level: "learning" },
+      { id: "delivery", level: "learning" },
+      { id: "operations", level: "experienced" },
+    ],
+    techTags: ["Python", "AWS", "Automation"],
+    coverCode: "04 / AUTOMATION",
+    artwork: "automation",
+    highlights: [
+      "チャットとタスクの連携",
+      "APIを使った自動化",
+      "運用を見据えた処理",
+    ],
+    learnings: [
+      "失敗時の確認方法もワークフローに含める。",
+      "小さな繰り返し作業から自動化を始める。",
+    ],
+  },
+];
+
+export const journey = [
+  {
+    period: "2021–2023",
+    title: "大学での研究",
+    description: "画像認識を使い、飲食店の人や座席の利用状況を捉える研究。",
+  },
+  {
+    period: "2023",
+    title: "AI SaaSでのインターン",
+    description: "プロダクトの中で、RAGや検索評価の考え方を学び、検討。",
+  },
+  {
+    period: "2023–現在",
+    title: "SIerでのAIシステム開発",
+    description: "社内資産管理を支えるAIチャットボットの開発と、検索の改善。",
+  },
 ];
 
 export const maxRadarScore = 3;
@@ -319,21 +357,24 @@ export function scoreContribution(level: ExperienceLevel) {
 }
 
 export const attributeById = new Map<SkillAttributeId, SkillAttribute>(
-  skillAttributes.map((attribute) => [attribute.id, attribute])
+  skillAttributes.map((attribute) => [attribute.id, attribute]),
 );
 
 export const projectById = new Map<string, Project>(
-  projects.map((project) => [project.id, project])
+  projects.map((project) => [project.id, project]),
 );
 
 function buildSkillScoreById() {
   const scores = new Map<SkillAttributeId, number>(
-    skillAttributeIds.map((id) => [id, 0] as const)
+    skillAttributeIds.map((id) => [id, 0] as const),
   );
 
   for (const project of projects) {
     for (const attribute of project.attributes) {
-      scores.set(attribute.id, (scores.get(attribute.id) ?? 0) + scoreContribution(attribute.level));
+      scores.set(
+        attribute.id,
+        (scores.get(attribute.id) ?? 0) + scoreContribution(attribute.level),
+      );
     }
   }
 
@@ -342,7 +383,7 @@ function buildSkillScoreById() {
 
 function buildProjectsBySkillAttributeId() {
   const index = new Map<SkillAttributeId, Project[]>(
-    skillAttributeIds.map((id) => [id, [] as Project[]] as const)
+    skillAttributeIds.map((id) => [id, [] as Project[]] as const),
   );
 
   for (const project of projects) {

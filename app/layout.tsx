@@ -1,25 +1,19 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
-  title: "YUU's room | Engineer Portfolio",
+  title: "Chuchu / AIエンジニア",
   description:
-    "古着とレコードの質感で、Webアプリ開発の経験とエンジニアリングスキルを整理するポートフォリオ。",
+    "曖昧な課題を、使えるAIへ。RAG・画像認識・自動化を軸に、使う人に届く仕組みをつくっています。",
   openGraph: {
-    title: "YUU's room | Engineer Portfolio",
-    description:
-      "古着とレコードをモチーフにした、フルスタック寄りエンジニアのポートフォリオ。",
+    title: "Chuchu / AIエンジニア",
+    description: "課題から、かたちへ。AIとソフトウェアの取り組み。",
     type: "website",
-    images: ["/images/hero-vintage-records.png"]
-  }
+    locale: "ja_JP",
+  },
 };
-
 export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ja">
       <body>{children}</body>

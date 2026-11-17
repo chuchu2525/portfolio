@@ -1,25 +1,73 @@
-import { ButtonLink, Ticket } from "./shared";
-import { HeroTurntable } from "./HeroTurntable.client";
-
+import { HeroVisual } from "./HeroVisual.client";
+import { Icon } from "./Icon";
+import s from "./PortfolioArtwork.module.css";
 export function HeroSection() {
   return (
-    <section className="relative grid min-h-[calc(100vh-84px)] grid-cols-1 items-center gap-[clamp(28px,5vw,72px)] border-x border-dashed border-[rgba(189,194,255,0.25)] px-[clamp(18px,5vw,72px)] py-[clamp(48px,7vw,96px)] [background:linear-gradient(90deg,rgba(26,35,126,0.95),rgba(26,35,126,0.82)),repeating-linear-gradient(45deg,rgba(255,255,255,0.025)_0_2px,transparent_2px_5px)] before:absolute before:inset-y-0 before:left-[5.2vw] before:border-l before:border-dashed before:border-[rgba(189,194,255,0.32)] after:absolute after:inset-y-0 after:right-[5.2vw] after:border-l after:border-dashed after:border-[rgba(189,194,255,0.32)] md:grid-cols-[minmax(0,1fr)_minmax(260px,340px)] lg:grid-cols-[minmax(0,1fr)_minmax(340px,520px)]">
-      <div className="relative z-10 max-w-[760px]">
-        <Ticket>FULL-STACK WEB ENGINEER</Ticket>
-        <h1 className="my-6 max-w-[780px] font-serif text-[clamp(40px,6.4vw,88px)] leading-[0.98] tracking-normal text-[var(--text)] [text-shadow:3px_3px_0_rgba(0,0,0,0.42)]">
-          課題を解決する、<span className="block italic text-[var(--yellow)]">利益をあげるエンジニア</span>
+    <section
+      id="top"
+      aria-labelledby="hero-heading"
+      className="grid items-center gap-1 pb-9 pt-5 md:min-h-[470px] md:grid-cols-[1.1fr_1fr] md:pb-14 md:pt-9"
+    >
+      <div className="relative z-10">
+        <h1
+          id="hero-heading"
+          className="text-[clamp(64px,7vw,104px)] font-semibold leading-[1.06] tracking-[-.075em]"
+        >
+          Chuchu<span className="pl-3 font-extralight">/</span>
+          <span className="mt-2 block pl-6 text-[.7em] tracking-[-.065em] lg:pl-12">
+            AIエンジニア
+          </span>
         </h1>
-        <p className="m-0 max-w-[660px] border-l-[5px] border-[var(--yellow)] bg-[rgba(9,9,13,0.26)] py-3 pr-0 pl-5 text-base leading-8 text-[var(--muted)] sm:text-lg">
-          UI実装、設計、改善を横断しながら、採用担当者にもエンジニアにも伝わる形で経験を整理するポートフォリオ。
-          古着とレコードの質感を、情報構造と技術領域の見せ方に接続します。
+        <h2 className="mt-8 text-[clamp(19px,1.9vw,27px)] font-semibold tracking-[-.05em]">
+          曖昧な課題を、使えるAIへ。
+        </h2>
+        <p className="mt-3 text-[13px] leading-7 text-[var(--muted)]">
+          RAG・画像認識・自動化を軸に、
+          <br />
+          使う人に届く仕組みをつくっています。
         </p>
-        <div className="mt-8 flex flex-wrap gap-3.5">
-          <ButtonLink href="#matrix" tone="yellow">Skill Matrix</ButtonLink>
-          <ButtonLink href="#projects" tone="dark">View Projects</ButtonLink>
-        </div>
+        <div className="mt-6 h-px w-9 bg-current" aria-hidden="true" />
       </div>
-
-      <HeroTurntable />
+      <HeroVisual>
+        <div className={s.scene}>
+          <div className={s.sun} />
+          <div className={s.glass} />
+          <svg className={s.orbit} viewBox="0 0 500 370">
+            <ellipse
+              cx="250"
+              cy="180"
+              rx="232"
+              ry="69"
+              transform="rotate(-29 250 180)"
+            />
+            <circle cx="441" cy="73" r="3" />
+            <ellipse
+              cx="250"
+              cy="180"
+              rx="205"
+              ry="82"
+              transform="rotate(38 250 180)"
+            />
+          </svg>
+          <div className={s.assistant}>
+            <b>
+              <Icon name="spark" className="!size-4" />
+              AIアシスタント
+            </b>
+            <div className={s.query}>
+              知りたいことを、聞いてみる。<span>↗</span>
+            </div>
+            <div className={s.caption}>SEARCH → UNDERSTAND → CREATE</div>
+          </div>
+          <div className={s.floating}>
+            <div>
+              <Icon name="layers" className="mx-auto !size-5" />
+              <span />
+            </div>
+          </div>
+          <span className={s.cross}>+</span>
+        </div>
+      </HeroVisual>
     </section>
   );
 }
