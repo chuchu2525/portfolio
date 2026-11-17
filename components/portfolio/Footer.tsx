@@ -1,8 +1,18 @@
+import Link from "next/link";
+import { pageClass } from "./styles";
 export function Footer() {
   return (
-    <footer className="flex min-h-[110px] flex-col justify-between gap-5 border-t-4 border-double border-[#252525] bg-[#070707] px-[clamp(18px,4vw,64px)] py-10 text-xs tracking-[0.14em] text-[#777] sm:flex-row">
-      <span>© YUU&apos;S ROOM / STATIC EXPORT</span>
-      <span>NEXT.JS / REACT / TYPESCRIPT</span>
+    <footer
+      className={`${pageClass} flex flex-wrap items-center justify-between gap-4 border-t border-[var(--line)] py-6 text-[10px] text-[var(--muted)]`}
+    >
+      <span>© {new Date().getFullYear()} Chuchu</span>
+      <span>考えて、つくって、よくしていく。</span>
+      <Link
+        href="/#top"
+        className="inline-flex min-h-11 items-center gap-4 hover:text-[var(--ink)]"
+      >
+        ページの先頭へ <span aria-hidden="true">↑</span>
+      </Link>
     </footer>
   );
 }

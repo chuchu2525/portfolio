@@ -1,30 +1,32 @@
 export function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
-
+export const pageClass =
+  "mx-auto max-w-[1390px] px-[22px] md:px-[30px] xl:px-12";
 export const navLinkClass =
-  "border-b-2 border-transparent py-1 hover:border-[var(--rust)] hover:text-[var(--yellow)] focus-visible:border-[var(--rust)] focus-visible:text-[var(--yellow)]";
+  "flex min-h-11 items-center border-b border-transparent text-xs hover:border-current";
 export const ticketClass =
-  "inline-flex w-fit border border-dashed border-[rgba(255,178,182,0.65)] bg-[var(--rust)] px-2.5 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[var(--rust-soft)]";
-export const sectionClass = "px-[clamp(18px,5vw,72px)] py-[clamp(70px,9vw,124px)]";
-export const sectionHeadClass = "grid gap-3.5";
+  "text-[10px] font-medium uppercase tracking-[.14em] text-[var(--muted)]";
+export const sectionClass = "border-t border-[var(--line)] py-16 md:py-20";
+export const sectionHeadClass =
+  "mb-8 flex flex-wrap items-end justify-between gap-5";
 export const sectionEyebrowClass = ticketClass;
-export const h2Class = "m-0 font-serif text-4xl leading-tight tracking-normal sm:text-5xl lg:text-6xl";
-export const paragraphClass = "m-0 max-w-[720px] text-base leading-8 text-[var(--muted)] sm:text-lg";
-
-const chipBaseClass = "min-h-8 cursor-pointer rounded border px-3 text-[11px] font-bold tracking-[0.1em]";
-const chipIdleClass = "border-[var(--line)] bg-[#242424] text-[var(--text)]";
-const chipActiveClass = "border-[#574400] bg-[var(--yellow)] text-[#241a00]";
-
+export const h2Class =
+  "text-[28px] font-semibold leading-[1.3] tracking-[-.055em] md:text-[36px]";
+export const paragraphClass = "max-w-xl text-sm leading-8 text-[var(--muted)]";
 export function chipClass(active: boolean) {
-  return cn(chipBaseClass, active ? chipActiveClass : chipIdleClass);
+  return cn(
+    "min-h-10 border px-3 text-xs transition-colors",
+    active
+      ? "border-[var(--ink)] bg-[var(--ink)] text-white"
+      : "border-[var(--line)] bg-transparent hover:bg-white",
+  );
 }
-
 export function buttonLinkClass(tone: "yellow" | "dark") {
   return cn(
-    "inline-flex min-h-[50px] cursor-pointer items-center justify-center rounded-lg border px-6 text-[13px] font-bold tracking-[0.12em]",
+    "inline-flex min-h-11 items-center justify-center gap-6 border px-5 text-xs font-medium transition-colors",
     tone === "yellow"
-      ? "border-[#574400] bg-linear-to-b from-[#ffe580] to-[var(--yellow)] text-[#241a00] shadow-[inset_0_1px_rgba(255,255,255,0.6),0_5px_0_rgba(0,0,0,0.38)]"
-      : "border-[var(--line)] bg-[var(--panel)] text-[var(--text)] shadow-[inset_0_1px_rgba(255,255,255,0.08)]"
+      ? "border-transparent bg-[var(--yellow)] hover:border-[var(--ink)]"
+      : "border-[var(--ink)] hover:bg-[var(--ink)] hover:text-white",
   );
 }

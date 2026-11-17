@@ -1,160 +1,100 @@
 @import "tailwindcss";
 @source "../app";
 @source "../components";
-
 :root {
-  --bg: #111111;
-  --vinyl: #070707;
-  --panel: #202020;
-  --panel-hi: #303030;
-  --denim: #1a237e;
-  --denim-2: #12185c;
-  --paper: #e5e2dc;
-  --paper-ink: #252321;
-  --text: #e8e4df;
-  --muted: #b9b5c5;
-  --yellow: #ffd245;
-  --yellow-2: #d7a900;
-  --rust: #93000a;
-  --rust-soft: #ffb2b6;
-  --line: #454652;
+  --bg: #efefed;
+  --ink: #101011;
+  --text: #101011;
+  --muted: #606064;
+  --line: #cececc;
+  --yellow: #ffdf00;
+  --panel: #f6f6f3;
+  --panel-hi: #fff;
+  --paper: #fff;
+  --paper-ink: #101011;
+  --rust: #101011;
+  --rust-soft: #606064;
+  --denim: #606064;
+  --denim-2: #efefed;
+  --vinyl: #101011;
+  --yellow-2: #e6c900;
 }
-
 * {
   box-sizing: border-box;
 }
-
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 24px;
 }
-
 body {
   margin: 0;
-  color: var(--text);
-  background:
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 6px),
-    var(--bg);
-  font-family: "Space Grotesk", "Helvetica Neue", Arial, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", Meiryo,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  font-synthesis: none;
 }
-
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  text-wrap: pretty;
+}
 a {
   color: inherit;
   text-decoration: none;
 }
-
 button,
 input,
+select,
 textarea {
   font: inherit;
+  color: inherit;
 }
-
-button {
+button,
+a {
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
-
-@layer components {
-  .matrix-radar {
-    width: 100%;
-    max-width: 410px;
-    display: block;
-    margin: 0 auto 24px;
-    overflow: visible;
-  }
-
-  .matrix-radar .radar-ring {
-    fill: transparent;
-    stroke: var(--line);
-    stroke-width: 1;
-  }
-
-  .matrix-radar line {
-    stroke: var(--line);
-    stroke-dasharray: 3 4;
-  }
-
-  .matrix-radar text {
-    fill: var(--muted);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-  }
-
-  .skill-polygon {
-    fill: rgba(26, 35, 126, 0.72);
-    stroke: var(--rust);
-    stroke-linejoin: round;
-    stroke-width: 3;
-  }
-
-  .svg-button {
-    cursor: pointer;
-  }
-
-  .point {
-    fill: var(--yellow);
-    stroke: #3d2f00;
-    stroke-width: 2;
-  }
-
-  .point.active {
-    fill: var(--rust-soft);
-    stroke: var(--rust);
-    stroke-width: 3;
-  }
-
-  .featured-patch-art {
-    background:
-      linear-gradient(135deg, rgba(255, 210, 69, 0.12), transparent 42%),
-      url("/images/hero-vintage-records.png") center / cover;
-    filter: sepia(0.35) contrast(1.12);
-  }
-
-  .denim-texture {
-    background:
-      linear-gradient(45deg, rgba(255, 255, 255, 0.025) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.025) 50%, rgba(255, 255, 255, 0.025) 75%, transparent 75%),
-      var(--denim-2);
-    background-size: 6px 6px;
-  }
-
-  .material-dot-art {
-    background:
-      radial-gradient(circle at center, transparent 0 18%, var(--yellow) 19% 28%, transparent 30%),
-      repeating-radial-gradient(circle, #1a1a1a 0 3px, #303030 4px 6px);
-  }
-
-  .record-sleeve-art {
-    background: repeating-radial-gradient(circle, #030303 0 6px, #1b1b1b 7px 10px);
-  }
-
-  .cover-art {
-    background:
-      linear-gradient(135deg, rgba(255, 210, 69, 0.1), transparent 48%),
-      url("/images/hero-vintage-records.png") center / cover,
-      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 2px, transparent 2px 6px),
-      var(--denim);
-    filter: sepia(0.3) contrast(1.1);
-  }
-
-  .portrait-art {
-    background:
-      linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28)),
-      url("/images/hero-vintage-records.png") center / cover;
-    filter: grayscale(0.7) sepia(0.25) contrast(1.2);
-  }
-
-  .about-texture {
-    background:
-      radial-gradient(circle at 78% 10%, rgba(26, 35, 126, 0.36), transparent 42%),
-      repeating-radial-gradient(circle at center, transparent 0 3px, rgba(255, 255, 255, 0.03) 4px, transparent 5px);
-  }
-
-  .barcode {
-    background: repeating-linear-gradient(90deg, #111 0 3px, transparent 3px 6px, #111 6px 8px, transparent 8px 13px);
-  }
+button {
+  cursor: pointer;
 }
-
+section[id] {
+  scroll-margin-top: 36px;
+}
+:focus-visible {
+  outline: 3px solid #3b4b66;
+  outline-offset: 5px;
+}
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+summary {
+  cursor: pointer;
+}
+svg {
+  flex-shrink: 0;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  cursor: pointer;
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

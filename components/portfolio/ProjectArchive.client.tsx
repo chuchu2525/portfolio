@@ -1,37 +1,128 @@
 "use client";
-
-import { useMemo, useState } from "react";
-import { getProjectsBySkillAttribute, skillAttributes, type ProjectFilterId } from "@/lib/portfolio-data";
+import { useState } from "react";
+import {
+  projects,
+  skillAttributes,
+  type ProjectFilterId,
+} from "@/lib/portfolio-data";
 import { ProjectCard } from "./ProjectCard";
 import { ChipButton } from "./shared";
-import { cn, h2Class, paragraphClass, sectionClass, sectionEyebrowClass, sectionHeadClass } from "./styles";
-
+import { h2Class, ticketClass, sectionClass } from "./styles";
 export function ProjectArchive() {
-  const [activeFilter, setActiveFilter] = useState<ProjectFilterId>("all");
-  const filteredProjects = useMemo(() => getProjectsBySkillAttribute(activeFilter), [activeFilter]);
-
+  const [query, setQuery] = useState("");
+  const [attribute, setAttribute] = useState<ProjectFilterId>("all");
+  const [category, setCategory] = useState("all");
+  const normalized = query.trim().toLocaleLowerCase();
+  const filtered = projects.filter(
+    (p) =>
+      (attribute === "all" || p.attributes.some((a) => a.id === attribute)) &&
+      (category === "all" || p.category === category) &&
+      [p.title, p.description, ...p.techTags]
+        .join(" ")
+        .toLocaleLowerCase()
+        .includes(normalized),
+  );
+  function reset() {
+    setQuery("");
+    setAttribute("all");
+    setCategory("all");
+  }
   return (
-    <section id="archive" className={cn(sectionClass, "border-y border-[#252525] bg-[#101010]")}>
-      <div className={cn(sectionHeadClass, "mx-auto mb-8 max-w-[820px] justify-items-center text-center")}>
-        <span className={sectionEyebrowClass}>PROJECT CRATE</span>
-        <h2 className={h2Class}>Project Archive</h2>
-        <p className={paragraphClass}>
-          代表実績以外も含めて、経験をレコードスリーブとして並べます。関係する技術領域で絞り込みできます。
+    <section
+      className={`${sectionClass} border-t-0 pt-10`}
+      aria-labelledby="archive-heading"
+    >
+      <p className={ticketClass}>/ PROJECT ARCHIVE</p>
+      <h1
+        id="archive-heading"
+        className={`${h2Class} mt-3 !text-[clamp(36px,5vw,64px)]`}
+      >
+        これまでの実績。
+      </h1>
+      <p className="mt-5 text-sm text-[var(--muted)]">
+        課題、技術、取り組み方。ひとつずつ、詳しく。
+      </p>
+      <div className="my-9 border-y border-[var(--line)] py-6">
+        <div className="grid gap-4 sm:grid-cols-[1fr_210px]">
+          <label className="text-xs">
+            キーワード・技術で探す
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="例：Python、RAG、Next.js"
+              className="mt-2 block min-h-12 w-full border border-[var(--line)] bg-transparent px-4 placeholder:text-[#777]"
+            />
+          </label>
+          <label className="text-xs">
+            取り組みの種類
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="mt-2 block min-h-12 w-full border border-[var(--line)] bg-transparent px-3"
+            >
+              <option value="all">すべての種類</option>
+              <option value="work">業務</option>
+              <option value="personal">個人開発</option>
+              <option value="learning">研究・学習</option>
+            </select>
+          </label>
+        </div>
+        <fieldset className="mt-5">
+          <legend className="mb-3 text-xs">経験した領域で絞り込む</legend>
+          <div className="flex flex-wrap gap-2">
+            <ChipButton
+              active={attribute === "all"}
+              onClick={() => setAttribute("all")}
+            >
+              すべて
+            </ChipButton>
+            {skillAttributes.map((a) => (
+              <ChipButton
+                key={a.id}
+                active={attribute === a.id}
+                onClick={() => setAttribute(a.id)}
+              >
+                {a.displayName}
+              </ChipButton>
+            ))}
+          </div>
+        </fieldset>
+      </div>
+      <div className="mb-6 flex min-h-10 items-center justify-between">
+        <p role="status" className="text-xs text-[var(--muted)]">
+          {filtered.length}件 / 全{projects.length}件
         </p>
+        <button
+          type="button"
+          onClick={reset}
+          className="min-h-11 px-2 text-xs underline"
+        >
+          条件をリセット
+        </button>
       </div>
-      <div className="mx-auto mb-8 flex flex-wrap justify-center gap-2">
-        <ChipButton active={activeFilter === "all"} onClick={() => setActiveFilter("all")}>ALL</ChipButton>
-        {skillAttributes.map((attribute) => (
-          <ChipButton active={activeFilter === attribute.id} key={attribute.id} onClick={() => setActiveFilter(attribute.id)}>
-            {attribute.label}
-          </ChipButton>
-        ))}
-      </div>
-      <div className="relative mx-auto grid w-[min(1240px,100%)] grid-cols-1 gap-6 border-b-[34px] border-[#151515] bg-[linear-gradient(90deg,#161616,#303030_4%,#151515_9%,#151515_91%,#303030_96%,#161616)] p-8 pb-14 shadow-[inset_0_-14px_22px_rgba(0,0,0,0.9)] lg:grid-cols-2">
-        {filteredProjects.map((project) => (
+      <div className="grid gap-x-7 gap-y-12 md:grid-cols-3">
+        {filtered.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
+      {filtered.length === 0 && (
+        <div className="border border-[var(--line)] px-6 py-16 text-center">
+          <h2 className="text-lg font-medium">
+            条件に合う実績が見つかりませんでした。
+          </h2>
+          <p className="mt-3 text-xs text-[var(--muted)]">
+            キーワードや領域を変えてみてください。
+          </p>
+          <button
+            type="button"
+            onClick={reset}
+            className="mt-5 min-h-11 border border-[var(--ink)] px-5 text-xs"
+          >
+            すべての実績を見る
+          </button>
+        </div>
+      )}
     </section>
   );
 }
