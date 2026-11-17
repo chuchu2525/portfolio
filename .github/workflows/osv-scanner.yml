@@ -1,0 +1,105 @@
+name: OSV-Scanner
+
+# PR では差分スキャン、main への push と週次では全体スキャン。
+# report は可視化専用。脆弱性の合否判定は既存の scan-pr / scan-scheduled が担う。
+permissions: {}
+
+on:
+  pull_request:
+    branches: [main]
+  merge_group:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 23 * * 3" # 水曜 23:17 UTC
+
+jobs:
+  scan-scheduled:
+    if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.5.0
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+  scan-pr:
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.5.0
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+  report:
+    name: OSV vulnerability report
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v4.2.2
+      - name: Scan dependencies and generate JSON
+        id: scan
+        uses: google/osv-scanner-action/osv-scanner-action@06b2ab4348248b456ee06c9e953637f55e03504f # v2.5.0
+        continue-on-error: true
+        with:
+          scan-args: |-
+            --format=json
+            --output=osv-report.json
+            -r
+            ./
+      - name: Write scan summary
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          report = Path("osv-report.json")
+          summary = Path(os.environ["GITHUB_STEP_SUMMARY"])
+          if not report.is_file() or not report.stat().st_size:
+              summary.open("a").write("## OSV scan report\n\nScan failed: no JSON report was produced.\n")
+              raise SystemExit("OSV Scanner did not produce a JSON report")
+          try:
+              data = json.loads(report.read_text())
+              if not isinstance(data, dict) or not isinstance(data.get("results"), list):
+                  raise ValueError("Missing results array")
+          except (ValueError, OSError) as exc:
+              summary.open("a").write("## OSV scan report\n\nScan failed: invalid JSON report.\n")
+              raise SystemExit(f"Invalid OSV report: {exc}")
+
+          packages = set()
+          findings = set()
+          for result in data["results"]:
+              for entry in result.get("packages", []):
+                  pkg = entry.get("package", {})
+                  ident = (pkg.get("ecosystem", ""), pkg.get("name", ""), pkg.get("version", ""))
+                  if ident[1]:
+                      packages.add(ident)
+                  for vuln in entry.get("vulnerabilities", []):
+                      vuln_id = vuln.get("id", "unknown")
+                      findings.add((*ident, vuln_id))
+          lines = [
+              "## OSV scan report", "",
+              f"- Scanned packages (unique ecosystem/name/version): **{len(packages)}**",
+              f"- Vulnerabilities (package × advisory): **{len(findings)}**", "",
+          ]
+          if findings:
+              lines += ["| Package | Version | Advisory |", "| --- | --- | --- |"]
+              for ecosystem, name, version, vuln_id in sorted(findings):
+                  label = f"{ecosystem}/{name}".replace("|", "\\|")
+                  safe_version = version.replace("|", "\\|")
+                  safe_id = vuln_id.replace("|", "\\|")
+                  lines.append(f"| {label} | {safe_version} | {safe_id} |")
+          else:
+              lines.append("No vulnerabilities detected (0).")
+          summary.open("a").write("\n".join(lines) + "\n")
+          PY
+      - name: Upload JSON report
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: osv-report
+          path: osv-report.json
+          if-no-files-found: warn

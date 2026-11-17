@@ -1,0 +1,39 @@
+# Dependabot 設定
+# 方針: セキュリティ更新は即時（Dependabot の仕様でクールダウン対象外）。
+# 通常のバージョン更新はクールダウンで待ち、汚染された新バージョンを
+# 検知前に取り込まないようにする（パッチ3日 / マイナー7日 / メジャー14日）。
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 3
+    groups:
+      production-minor-patch:
+        dependency-type: "production"
+        update-types: ["minor", "patch"]
+      development-minor-patch:
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
+    cooldown:
+      default-days: 7
+    groups:
+      actions-minor-patch:
+        update-types: ["minor", "patch"]
